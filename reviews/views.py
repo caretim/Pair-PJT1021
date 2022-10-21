@@ -1,11 +1,14 @@
-from django.shortcuts import render,redirect
+
+from django.shortcuts import render,redirect ,get_object_or_404
 from .forms import PostForm ,CommentForm
 from .models import Review, Comment 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+
 # Create your views here.
+
 
 @login_required
 def create(request):
@@ -15,13 +18,13 @@ def create(request):
             review = forms.save(commit=False)
             review.user = request.user
             review.save()
-            return redirect ('reviews:index')
+            return redirect("reviews:index")
     else:
         forms = PostForm()
     context = {
-        "forms" : forms,
+        "forms": forms,
     }
-    return render(request, 'reviews/create.html', context)
+    return render(request, "reviews/create.html", context)
 
 
 def index(request):
@@ -33,17 +36,20 @@ def index(request):
         'all_user' : all_user,
         'all_comment': all_comment,
     }
-    return render(request, 'reviews/index.html', context)
+    return render(request, "reviews/index.html", context)
 
 
 def detail(request, review_pk):
     review = Review.objects.get(pk=review_pk)
+    members = review.join_member.all()
     comment_form = CommentForm()
     context = {
-        'review': review,
-        'comment_form':comment_form,
+        "review": review,
+        "comment_form": comment_form,
+        "members": members,
     }
-    return render(request, 'reviews/detail.html', context)
+    return render(request, "reviews/detail.html", context)
+
 
 def update(request, review_pk):
     review = Review.objects.get(pk=review_pk)
@@ -51,21 +57,22 @@ def update(request, review_pk):
         forms = PostForm(request.POST, instance=review)
         if forms.is_valid():
             forms.save()
-            return redirect('reviews:detail', review_pk)
-        
+            return redirect("reviews:detail", review_pk)
+
     else:
         forms = PostForm(instance=review)
     context = {
-        "forms" : forms,
+        "forms": forms,
     }
-    return render(request, 'reviews/update.html', context)
+    return render(request, "reviews/update.html", context)
+
 
 def delete(request, review_pk):
     review = Review.objects.get(pk=review_pk)
     if review.user == request.user:
         review.delete()
-        return redirect('reviews:index')
-    
+        return redirect("reviews:index")
+
     else:
         return HttpResponseForbidden()
 
@@ -76,18 +83,29 @@ def comments(request, review_pk):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
-            comment.user = request.user 
+            comment.user = request.user
             comment.review = review
             comment.save()
-            return redirect('reviews:detail', review_pk)
+            return redirect("reviews:detail", review_pk)
 
 
 def comments_delete(request, review_pk, comment_pk):
     comment = Comment.objects.get(pk=comment_pk)
     if comment.user == request.user:
         comment.delete()
-        return redirect('reviews:detail', review_pk)
+        return redirect("reviews:detail", review_pk)
     else:
+        return HttpResponseForbidden()
+
+
+@login_required
+def join_member(request, review_pk):
+    review = get_object_or_404(Review, pk=review_pk)
+    if review.join_member.filter(pk=request.user.pk).exists():
+        review.join_member.remove(request.user)
+    else:
+        review.join_member.add(request.user)
+    return redirect("reviews:detail", review_pk)
         return HttpResponseForbidden()
 
 def pick_game(request,game_pk):
@@ -119,3 +137,4 @@ def search(request):
         return render (request, 'reviews/index.html',context)
 
 # path("<int:review_pk>/pick_game/", views.pick_game, name="pick_game"),
+
