@@ -2,6 +2,18 @@
 {% load django_bootstrap5%}
 {% block content %}
 <h1>{{ review.title }}</h1>
+
+
+<a href="{% url 'reviews:join_member' review.pk %}">참여</a>
+<div>
+  {% for member in members %}
+
+  {{member}}
+
+  {% endfor %}
+
+</div>
+
 <hr>
 <h1>댓글</h1>
 <form action="{% url 'reviews:comments' review.pk  %}" method="POST">
@@ -11,11 +23,11 @@
 </form>
 <hr>
 {% for comment in review.comment_set.all %}
-  {{comment.content}}
-  <form action="{% url 'reviews:comments_delete' review.pk comment.pk %}" method="POST">
-    {% csrf_token %}
-    <input type="submit" value="삭제">
-  </form>
+{{comment.content}}
+<form action="{% url 'reviews:comments_delete' review.pk comment.pk %}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="삭제">
+</form>
 {% endfor %}
 
 {% endblock %}
