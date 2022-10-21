@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5%}
+{% block content %}
+<h1> 인덱스페이지 </h1>
+
+
+
+{% for data in all_data %}
+
+<p> 제목: {{data.title}} </p>
+
+{% endfor %}
+
+
+{% endblock %}
