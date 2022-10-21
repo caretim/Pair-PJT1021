@@ -8,7 +8,7 @@
 <p>회원가입일:{{pick_user.date_joined}}</p>
 
 
-<p>작성한 글 수 : {{pick_user.Review_set.all legnth}}개</p>
+<p>작성한 글 수 : {{pick_user.review_set.all|length}}개</p>
 
 {% if pick_user.image %}
 <img src="{{pick_user.image.url}}" alt="pick_user.image.url">
@@ -22,8 +22,10 @@
 
 <hr>
 <h4>{{pick_user.username}}님의 작성글</h4>
-{%for post in pick_user.Review_set.all %}
-<a href="{% url 'reviews:detail' post.pk %}"><p>{{ post.title }}</p></a>
-
+{% for post in pick_user.review_set.all %}
+<a href="{% url 'reviews:detail' post.pk %}">
+    <p>{{ post.title }}</p>
+</a>
+{% endfor %}
 
 {% endblock content %}
