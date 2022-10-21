@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5%}
+{% block content %}
+<h1>{{pick_user.username}}님의 회원정보</h1>
+
+<p>{{pick_user.username}}님</p>
+
+<p>회원가입일:{{pick_user.date_joined}}</p>
+
+
+<p>작성한 글 수 : {{pick_user.review_set.all|length}}개</p>
+
+{% if pick_user.image %}
+<img src="{{pick_user.image.url}}" alt="pick_user.image.url">
+
+{% endif %}
+
+{% if request.user == pick_user.user %}
+<a href="{% url 'accounts:delete' pick_user.pk %}">회원탈퇴</a>
+<a href="{% url 'accounts:update' pick_user.pk %}">회원정보수정</a>
+{% endif %}
+
+<hr>
+<h4>{{pick_user.username}}님의 작성글</h4>
+{% for post in pick_user.review_set.all %}
+<a href="{% url 'reviews:detail' post.pk %}">
+    <p>{{ post.title }}</p>
+</a>
+{% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,62 @@
+@font-face {
+  font-family: 'HBIOS-SYS';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2207-01@1.0/HBIOS-SYS.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Pretendard-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+.simple {
+  font-family: 'Pretendard-Regular';
+}
+.retro {
+  font-family: 'HBIOS-SYS';
+}
+
+/* base.html */
+.bg {
+  background-color: #2a0b49;
+  height: 100vh;
+  padding-top: 3rem;
+}
+.bg>div {
+  background-color:#ededed;
+  border-radius: 1rem;
+  margin-top: 3rem;
+}
+.base-contents {
+  padding: 3rem 0;
+}
+
+/* index.html */
+.index-counter {
+  background-color: rgb(9, 9, 9);
+  margin: 4rem 0;
+}
+.index-counter>div {
+  padding: 3.5rem 0;
+}
+.index-counter h1 {
+  font-size: 5rem;
+}
+.info-message {
+  width:4.2rem;
+  margin-right: 0.8rem;
+}
+.index-card {
+  position: relative;
+  padding: 0;
+  background-image: url(");
+}
+.index-card-content {
+  position: absolute;
+  bottom: 0%;
+  height: 40%;
+  width: 100%;
+  background-color: rgb(0,0,0,0.65);
+}

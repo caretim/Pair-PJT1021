@@ -1,15 +1,72 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5%}
+{% load static %}
 {% block content %}
-<h1> 인덱스페이지 </h1>
+<!-- 캐러셀 -->
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://static.inven.co.kr/column/2022/02/23/news/i14107471944.png" class="d-block w-100" alt="Duck">
+    </div>
+    <div class="carousel-item">
+      <img src="https://i.ytimg.com/vi/m_o0MpnD7oQ/maxresdefault.jpg" class="d-block w-100" alt="OverWatch2">
+    </div>
+    <div class="carousel-item">
+      <img src="https://i.ytimg.com/vi/8A9OGNxYyiU/maxresdefault.jpg" class="d-block w-100" alt="LOL">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
 
+<!-- 카운트  -->
+<div class="index-counter d-flex justify-content-around text-white retro">
+  <div class="col-4">
+    <p class="m-0">등록한 회원 수</p>
+    <h1>{{ all_user.count }}</h1>
+  </div>
+  <div class="col-4">
+    <p class="m-0">작성된 글 갯수</p>
+    <h1>{{ all_data.count }}</h1>
+  </div>
+  <div class="col-4">
+    <p class="m-0">작성된 댓글 갯수</p>
+    <h1>{{ all_comment.count }}</h1>
+  </div>
+</div>
 
-
-{% for data in all_data %}
-
-<a href="{% url 'reviews:detail' data.pk %}"><p> 제목: {{data.title}} </p></a>
-
-{% endfor %}
-
+<h2 class="retro"><img src="{% static 'images/info.png' %}" class="info-message">파티원을 찾아보세요!</h2>
+<div class="row">
+  {% for data in all_data %}
+    <div class="index-card col-4" style="background-image:url("{% static 'images/goose.png' %}")>
+      <a href="{% url 'reviews:detail' data.pk %}">
+        <div class="index-card-content">
+          {{ data.title }}
+        </div>
+      </a>
+    </div>
+  {% endfor %}
+</div>
 
 {% endblock %}
+
+
+<!--
+롤: https://image.fmkorea.com/files/attach/new/20200910/14339012/2691161141/3084512844/a7a255932cf3291ee6b6fe7ffb156a2e.jpg
+옵치: https://static.wikia.nocookie.net/overwatch152/images/b/bf/%EC%98%A4%EB%B2%84%EC%9B%8C%EC%B9%98_%EB%A1%9C%EA%B3%A0.jpg/revision/latest?cb=20160616114533&path-prefix=ko
+어몽어스: https://img.etnews.com/photonews/2101/1379314_20210128120525_438_0001.jpg
+로아: https://img.hankyung.com/photo/202106/61241_201145_2219.jpg
+메이플: https://image.ytn.co.kr/general/jpg/2021/0311/202103110915014429_d.jpg
+폴가이즈: https://cdn2.unrealengine.com/fall-guys-is-now-free-for-all-on-the-epic-games-store-1920x1080-64479af04272.jpg
+-->
