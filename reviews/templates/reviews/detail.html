@@ -2,21 +2,20 @@
 {% load django_bootstrap5%}
 {% block content %}
 <h1>{{ review.title }}</h1>
-
-
 <hr>
 <h1>댓글</h1>
 <form action="{% url 'reviews:comments' review.pk  %}" method="POST">
-    {% csrf_token %}
-    {% bootstrap_form comment_form %}
-    <input type="submit" class="btn btn-outline-primary">
+  {% csrf_token %}
+  {% bootstrap_form comment_form %}
+  <input type="submit" class="btn btn-outline-primary">
 </form>
-
 <hr>
 {% for comment in review.comment_set.all %}
-
-{{comment.content}}
-
+  {{comment.content}}
+  <form action="{% url 'reviews:comments_delete' review.pk comment.pk %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="삭제">
+  </form>
 {% endfor %}
 
 {% endblock %}
