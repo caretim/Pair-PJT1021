@@ -1,9 +1,16 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5%}
 {% block content %}
-<h1>{{ review.title }}</h1>
+<h1>{{ review.title }}</h1>  #글 제목 
+<a href="{% url 'accounts:detail' review.user %}">{{ review.user }} </a>  # 글쓴이 
+{{review.content}}  # 글 내용
+
+{{review.member}} # 모집인원
+{{review.game_name}} # 게임이름
+
 <hr>
 <h1>댓글</h1>
+<p>{{review.comment_set.all|length }}개의 댓글이 있습니다.</p>
 <form action="{% url 'reviews:comments' review.pk  %}" method="POST">
   {% csrf_token %}
   {% bootstrap_form comment_form %}
@@ -11,11 +18,13 @@
 </form>
 <hr>
 {% for comment in review.comment_set.all %}
-  {{comment.content}}
+ <p>{{comment.content}} | <a href="{% url 'accounts:detail' comment.user %}">{{comment.user}} </a></p>#코멘트내용  #코멘트 작성자
+ {%if comment.user == reuqest.user %}
   <form action="{% url 'reviews:comments_delete' review.pk comment.pk %}" method="POST">
     {% csrf_token %}
     <input type="submit" value="삭제">
   </form>
+  {% endif %}
 {% endfor %}
 
 {% endblock %}

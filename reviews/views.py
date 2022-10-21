@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect
 from .forms import PostForm ,CommentForm
-from .models import Review, Comment
+from .models import Review, Comment 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
+from django.contrib.auth import get_user_model
+from django.db.models import Q
 # Create your views here.
 
 @login_required
@@ -24,8 +26,12 @@ def create(request):
 
 def index(request):
     all_data = Review.objects.order_by('-pk')
+    all_user = get_user_model().objects.order_by('-pk')
+    all_comment = Comment.objects.order_by('-pk')
     context = {
         'all_data' : all_data,
+        'all_user' : all_user,
+        'all_comment': all_comment,
     }
     return render(request, 'reviews/index.html', context)
 
@@ -83,3 +89,33 @@ def comments_delete(request, review_pk, comment_pk):
         return redirect('reviews:detail', review_pk)
     else:
         return HttpResponseForbidden()
+
+def pick_game(request,game_pk):
+    pick_game = Review.objects.filter(game_name = game_pk)
+    context= {
+        "all_data" : pick_game,
+        }
+    return render(request, 'reviews/index.html', context)
+
+def search(request):
+    all_data = Review.objects.all()
+    search_data = request.GET.get("search", "")
+
+    if search_data :
+        return_data = all_data.filter(
+        Q(title__icontains=search_data)|
+        Q(content__icontains=search_data))
+    if len(search_data) == 0:
+        none_info = "공백을 입력하셨습니다."
+        context = {
+            "none_info": none_info,
+        }
+
+    elif len(return_data) == 0:
+        none_info = "검색 결과가 없습니다."
+        context = {
+            "none_info": none_info,
+        }
+        return render (request, 'reviews/index.html',context)
+
+# path("<int:review_pk>/pick_game/", views.pick_game, name="pick_game"),

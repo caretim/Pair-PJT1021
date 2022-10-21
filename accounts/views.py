@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from .forms import MakeUserForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth  import login as my_login , logout as my_logout
+from django.contrib.auth  import login as my_login , logout as my_logout,get_user_model
+
 
 # Create your views here.
 def signup(request):
     if request.method == "POST":
-        forms = MakeUserForm(request.POST)
-        if forms.is_valid():
+        forms = MakeUserForm(request.POST, request.FILES)
+        if forms.is_valid(): 
             user = forms.save()
             my_login(request, user)
             return redirect ('reviews:index')
@@ -36,3 +37,34 @@ def login(request):
 def logout(request):
     my_logout(request)
     return redirect ('reviews:index')
+
+def update(request, user_pk):
+    infos = get_user_model().objects.get(pk=user_pk)
+    if request.method == "POST":
+        forms = MakeUserForm(request.POST, request.FILES, instance=infos)
+        if forms.is_valid():
+            user = forms.save()
+            my_login(request, user)
+            return redirect ('accounts:detail', user_pk)
+    else:
+        forms = MakeUserForm()
+    context = {
+        "forms" : forms,
+    }
+    return render(request, "accounts/signup.html", context)
+
+
+
+
+
+
+def user_detail(request,user_pk):
+    
+    pick_user = get_user_model().objects.get(pk=user_pk)
+
+    context={
+        'pick_user':pick_user,
+    }
+    
+    return render(request,"accounts/detail.html",context)
+    

@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'accounts',
     'reviews',
+    'imagekit',
     'django_bootstrap5',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -120,7 +121,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+import os
+STATIC_URL = 'Pair-PJT1021/static/'
+STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+    )
+
+MEDIA_ROOT = BASE_DIR / 'images'
+
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
