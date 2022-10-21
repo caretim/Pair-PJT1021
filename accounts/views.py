@@ -9,7 +9,7 @@ def signup(request):
         forms = MakeUserForm(request.POST)
         if forms.is_valid():
             forms.save()
-            return render(request, 'base.html')
+            return redirect ('reviews:index')
 
     else:
         forms = MakeUserForm()
@@ -24,7 +24,7 @@ def login(request):
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             my_login(request, form.get_user())
-            return render (request, 'base.html')
+            return redirect (request.GET.get('next') or  'reviews:index')
     else:
         form = AuthenticationForm()
     context={
@@ -35,4 +35,4 @@ def login(request):
 
 def logout(request):
     my_logout(request)
-    return render(request, 'base.html')
+    return redirect ('reviews:index')
