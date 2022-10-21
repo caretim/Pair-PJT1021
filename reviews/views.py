@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .forms import PostForm
 from .models import Review
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 # Create your views here.
 
 @login_required
@@ -35,3 +36,27 @@ def detail(request, review_pk):
         'review': review,
     }
     return render(request, 'reviews/detail.html', context)
+
+def update(request, review_pk):
+    review = Review.objects.get(pk=review_pk)
+    if request.method == "POST":
+        forms = PostForm(request.POST, instance=review)
+        if forms.is_valid():
+            forms.save()
+            return redirect('reviews:detail', review_pk)
+        
+    else:
+        forms = PostForm(instance=review)
+    context = {
+        "forms" : forms,
+    }
+    return render(request, 'reviews/update.html', context)
+
+def delete(request, review_pk):
+    review = Review.objects.get(pk=review_pk)
+    if review.user == request.user:
+        review.delete()
+        return redirect('reviews:index')
+    
+    else:
+        return HttpResponseForbidden()
