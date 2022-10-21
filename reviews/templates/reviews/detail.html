@@ -9,7 +9,6 @@
   {{member}}
   {% endfor %}
 </div>
-<h1>{{ review.title }}</h1> #글 제목
 <a href="{% url 'accounts:user_detail' review.pk  %}">{{ review.user }} </a> # 글쓴이
 {{review.content}} # 글 내용
 {{review.member}} # 모집인원

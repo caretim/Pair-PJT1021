@@ -106,7 +106,7 @@ def join_member(request, review_pk):
     else:
         review.join_member.add(request.user)
     return redirect("reviews:detail", review_pk)
-        return HttpResponseForbidden()
+        # return HttpResponseForbidden()
 
 def pick_game(request,game_pk):
     pick_game = Review.objects.filter(game_name = game_pk)
