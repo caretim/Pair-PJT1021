@@ -7,7 +7,7 @@
 
 {% for data in all_data %}
 
-<p> 제목: {{data.title}} </p>
+<a href="{% url 'reviews:detail' data.pk %}"><p> 제목: {{data.title}} </p></a>
 
 {% endfor %}
 

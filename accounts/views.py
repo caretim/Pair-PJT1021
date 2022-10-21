@@ -8,9 +8,9 @@ def signup(request):
     if request.method == "POST":
         forms = MakeUserForm(request.POST)
         if forms.is_valid():
-            forms.save()
+            user = forms.save()
+            my_login(request, user)
             return redirect ('reviews:index')
-
     else:
         forms = MakeUserForm()
     context = {
