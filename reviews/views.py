@@ -136,5 +136,26 @@ def search(request):
         }
         return render (request, 'reviews/index.html',context)
 
+
+
+def update_comment(request,comment_pk,article_pk):
+    comment = Comment.objects.get(pk = comment_pk)
+    if comment.user == request.user:
+        if request.method == "POST":
+            forms = CommentForm(request.POST, instance=comment)
+            if forms.is_valid():
+                forms.save()
+                return redirect ("reviews:detial",article_pk)
+        else: 
+            form = forms = CommentForm(instance = comment)
+
+    
+        comment.content = 
+    
+    
+    
+
+
+    return redirect("reviews:detail" ,article_pk) 
 # path("<int:review_pk>/pick_game/", views.pick_game, name="pick_game"),
 
