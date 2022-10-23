@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5%}
 {% block content %}
-  <form action="" method="POST">
+  <form action="" method="POST" class="px-5">
     {% csrf_token %}
     {% bootstrap_form forms %}
     <input type="submit" class="btn btn-outline-primary">

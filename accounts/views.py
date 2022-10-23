@@ -38,6 +38,7 @@ def logout(request):
     my_logout(request)
     return redirect ('reviews:index')
 
+
 def update(request, user_pk):
     infos = get_user_model().objects.get(pk=user_pk)
     if request.method == "POST":
@@ -54,17 +55,10 @@ def update(request, user_pk):
     return render(request, "accounts/signup.html", context)
 
 
-
-
-
-
 def user_detail(request,user_pk):
-    
     pick_user = get_user_model().objects.get(pk=user_pk)
-
     context={
         'pick_user':pick_user,
     }
-    
     return render(request,"accounts/detail.html",context)
     
