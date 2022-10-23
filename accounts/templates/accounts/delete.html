@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5%}
+{% load static %}
+
+{% block content %}
+<div class="h-100 d-flex flex-column justify-content-center align-items-center">
+  <img src="{% static 'images/leave.png' %}" class="delete-img">
+  <h1 class="fw-bold retro">정말 떠나시겠습니까?</h1>
+  <div class="d-flex">
+    <a href="{% url 'accounts:user_detail' request.user.pk %}" class="text-decoration-none text-white">
+      <div class="detail-btn">아니요!!!!</div>
+    </a>
+    <a href="{% url 'accounts:realdelete' request.user.pk %}" class="text-decoration-none text-white">
+      <div class="detail-btn" style="background-color: rgb(166, 166, 166)">네...</div>
+    </a>
+  </div>
+</div>
+{% endblock %}
