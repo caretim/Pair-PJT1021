@@ -64,3 +64,44 @@
   width: 100%;
   background-color: rgb(0,0,0,0.65);
 }
+
+
+/* 디테일 */
+.pt-btn {
+  text-decoration: none;
+  font-family: 'HBIOS-SYS';
+  color: white;
+}
+
+.pt-btn:hover {
+  color: #e5e5e5;
+}
+
+.pt-y {
+  width: 10%;
+  padding: 3px;
+  background-color: #2d6a4f;
+  margin: auto;
+  text-align: center;
+}
+
+.pt-n {
+  width: 10%;
+  padding: 3px;
+  background-color: #a1070c;
+  margin: auto;
+  text-align: center;
+}
+.pt-y:hover {
+  background-color: rgb(7 85 46);
+  text-decoration: none;
+}
+
+.pt-n:hover {
+  background-color: #910409;
+  text-decoration: none;
+}
+
+.review-content {
+  min-height: 150px;
+}
