@@ -37,15 +37,21 @@ def index(request):
     }
     return render(request, "reviews/index.html", context)
 
+headers = [
+    (1, "모집합니다"),
+    (2, "참여합니다"),
+]
 
 def detail(request, review_pk):
     review = Review.objects.get(pk=review_pk)
+    header = headers[review.header_tag-1][1]
     members = review.join_member.all()
     comment_form = CommentForm()
     context = {
         "review": review,
         "comment_form": comment_form,
         "members": members,
+        "header" : header,
     }
     return render(request, "reviews/detail.html", context)
 
