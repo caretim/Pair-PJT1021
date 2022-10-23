@@ -3,6 +3,7 @@ from .forms import MakeUserForm, ChangeUserForm
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as my_login, logout as my_logout, get_user_model
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 # Create your views here.
 def signup(request):
@@ -58,14 +59,35 @@ def update(request, user_pk):
 @login_required
 def user_detail(request, user_pk):
     pick_user = get_user_model().objects.get(pk=user_pk)
+    p_page = request.GET.get("postpage")  # postpage=3
+    c_page = request.GET.get("comment_page")
+    if not c_page:
+        status = 0
+    else:
+        status = 1
+
+    user_post = pick_user.review_set.all()
+    post_data = Paginator(user_post, 5)
+
+    user_comment = pick_user.comment_set.all()
+    comment_data = Paginator(user_comment, 5)
+
+    post_page = post_data.get_page(p_page)
+    comment_page = comment_data.get_page(c_page)
+
     context = {
         "pick_user": pick_user,
+        "post_page": post_page,
+        "comment_page": comment_page,
+        "status": status,
     }
     return render(request, "accounts/detail.html", context)
+
 
 @login_required
 def delete(request, user_pk):
     return render(request, "accounts/delete.html")
+
 
 @login_required
 def realdelete(request, user_pk):
