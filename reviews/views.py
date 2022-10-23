@@ -1,7 +1,6 @@
-
-from django.shortcuts import render,redirect ,get_object_or_404
-from .forms import PostForm ,CommentForm
-from .models import Review, Comment 
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import PostForm, CommentForm
+from .models import Review, Comment
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 from django.contrib.auth import get_user_model
@@ -28,13 +27,13 @@ def create(request):
 
 
 def index(request):
-    all_data = Review.objects.order_by('-pk')
-    all_user = get_user_model().objects.order_by('-pk')
-    all_comment = Comment.objects.order_by('-pk')
+    all_data = Review.objects.order_by("-pk")
+    all_user = get_user_model().objects.order_by("-pk")
+    all_comment = Comment.objects.order_by("-pk")
     context = {
-        'all_data' : all_data,
-        'all_user' : all_user,
-        'all_comment': all_comment,
+        "all_data": all_data,
+        "all_user": all_user,
+        "all_comment": all_comment,
     }
     return render(request, "reviews/index.html", context)
 
@@ -106,23 +105,25 @@ def join_member(request, review_pk):
     else:
         review.join_member.add(request.user)
     return redirect("reviews:detail", review_pk)
-        # return HttpResponseForbidden()
+    # return HttpResponseForbidden()
 
-def pick_game(request,game_pk):
-    pick_game = Review.objects.filter(game_name = game_pk)
-    context= {
-        "all_data" : pick_game,
-        }
-    return render(request, 'reviews/index.html', context)
+
+def pick_game(request, game_pk):
+    pick_game = Review.objects.filter(game_name=game_pk)
+    context = {
+        "all_data": pick_game,
+    }
+    return render(request, "reviews/index.html", context)
+
 
 def search(request):
     all_data = Review.objects.all()
     search_data = request.GET.get("search", "")
 
-    if search_data :
+    if search_data:
         return_data = all_data.filter(
-        Q(title__icontains=search_data)|
-        Q(content__icontains=search_data))
+            Q(title__icontains=search_data) | Q(content__icontains=search_data)
+        )
     if len(search_data) == 0:
         none_info = "공백을 입력하셨습니다."
         context = {
@@ -134,28 +135,17 @@ def search(request):
         context = {
             "none_info": none_info,
         }
-        return render (request, 'reviews/index.html',context)
+        return render(request, "reviews/index.html", context)
 
 
-
-def update_comment(request,comment_pk,article_pk):
-    comment = Comment.objects.get(pk = comment_pk)
-    if comment.user == request.user:
-        if request.method == "POST":
-            forms = CommentForm(request.POST, instance=comment)
-            if forms.is_valid():
-                forms.save()
-                return redirect ("reviews:detial",article_pk)
-        else: 
-            form = forms = CommentForm(instance = comment)
-
-    
-        comment.content = 
-    
-    
-    
+# def update_comment(request,comment_pk,article_pk):
+#     comment = Comment.objects.get(pk = comment_pk)
+#     if comment.user == request.user:
+#         if request.method == "POST":
+#             forms = CommentForm(request.POST, instance=comment)
+#             if forms.is_valid():
+#                 forms.save()
+#                 return redirect ("reviews:detial",article_pk)
 
 
-    return redirect("reviews:detail" ,article_pk) 
-# path("<int:review_pk>/pick_game/", views.pick_game, name="pick_game"),
-
+#     return redirect("reviews:detail" ,article_pk)
