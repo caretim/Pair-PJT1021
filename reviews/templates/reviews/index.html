@@ -46,19 +46,27 @@
   </div>
 </div>
 
-<h2 class="retro"><img src="{% static 'images/info.png' %}" class="info-message">파티원을 찾아보세요!</h2>
+<h2 class="retro"><img src="{% static 'images/info.png' %}" class="info-message">파티원을 찾아보세요!!</h2>
 <div class="row">
   {% for data in all_data %}
-    <div class="index-card col-4" style="background-image:url("{% static 'images/goose.png' %}")>
+    <div class="index-card col-4">
       <a href="{% url 'reviews:detail' data.pk %}">
-        <div class="index-card-content">
-          {{ data.title }}
+        <img src="{% static 'images/goose.png' %}">
+        <div class="index-card-content d-flex justify-content-between align-items-end">
+          <div>
+            <h1>{{ data.title }}</h1>
+            <h2>{{ data.user }}</h2>
+          </div>
+          <div>
+            <p class="m-0 ">인원</p>
+            <h1>{{ data.join_member.all.count }}/{{ data.member }}</h1>
+          </div>
         </div>
       </a>
     </div>
   {% endfor %}
 </div>
-
+  
 {% endblock %}
 
 

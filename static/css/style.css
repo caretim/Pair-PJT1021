@@ -21,8 +21,6 @@
 /* base.html */
 .bg {
   background-color: #2a0b49;
-  height: 100vh;
-  padding-top: 3rem;
 }
 .bg>div {
   background-color:#ededed;
@@ -51,11 +49,17 @@
 .index-card {
   position: relative;
   padding: 0;
-  background-image: url(");
+}
+.index-card>a {
+  color: white;
+}
+.index-card img {
+  width: 100%;
+  object-fit: cover;
 }
 .index-card-content {
   position: absolute;
-  bottom: 0%;
+  bottom: 0;
   height: 40%;
   width: 100%;
   background-color: rgb(0,0,0,0.65);
