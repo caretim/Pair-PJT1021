@@ -1,19 +1,27 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5%}
+{% load static %}
 {% block content %}
-
+<div class="detail-container">
 <!-- 글 헤더(프로필, 글 제목) -->
   <div class="article-title p-3">
     <!-- 글 제목 -->
-    <h1 class="text-start fw-bold">
-      <span>[{{ header }}]</span> {{ review.title }}
-    </h1>
-    <!-- 프로필 -->
-    <div>
-
-      <img src="{{ review.image }}" alt="" width: "30px;">
+    <div class="d-flex align-items-center">
+      <div class="detail-header">{{ header }}</div>
+      <h1 class="detail-title text-start fw-bold">{{ review.title }}</h1>
     </div>
+    <!-- 프로필 -->
+    <div class="d-flex align-items-center">
+      <!-- 프로필 사진 -->
+      {% if review.user.image %}
+        <img src="{{ review.user.image.url }}" alt="프로필 이미지" class="detail-img">
+      {% else %}
+        <img src="{% static 'images/goose.png' %}" alt="프로필 대체 이미지" class="detail-img">
+      {% endif %}
+      <h2 class="detail-user-name">{{ review.user }}</h2>
   </div>
+
+  <hr>
 
   <div>
     {% for member in members %}
@@ -26,12 +34,49 @@
 
   <!-- 글 내용 -->
   <div class="review-content p-3">
-    {{review.content}}
+    {{ review.content }}
   </div>
-  {{review.member}}
-  # 모집인원
-  {{review.game_name}}
-  # 게임이름
+  #{{ game }}
+  #{{ review.member }}명
+  #{{ header }}
+
+  <!-- 여기 새로 만드는 중 공사중 -->
+  <div class="detail-box">
+    <div class="detail-box-tag">
+      #{{ game }}
+      #{{ review.member }}명
+      #{{ header }}
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <div class="detail-box-content">
+          {{ review.content }}
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="detail-box-join text-center">
+          <div>
+            <h2>현재 참가자 명단</h2>
+            <h2>{{ members.count }} / {{ review.member }}</h2>
+          </div>
+          {% for member in members %}
+            <div>
+              {% if review.user.image %}
+                <img src="{{ review.user.image.url }}" alt="프로필 이미지" class="detail-img">
+              {% else %}
+                <img src="{% static 'images/goose.png' %}" alt="프로필 대체 이미지" class="detail-img">
+              {% endif %}
+              <h2 class="detail-user-name">{{ review.user }}</h2>
+              <img src="" alt="참가자 프로필 사진">
+              <h4>{{ member }}</h4>
+              
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 여기까지 공사중 -->
 
   <!-- 참여하기 버튼 -->
   <a href="{% url 'reviews:join_member' review.pk %}" class="pt-btn d-flex justify-content-center">
@@ -73,7 +118,7 @@
       </form>
     {% endif %}
   {% endfor %}
-
+</div>
   <script></script>
 
   <style>
