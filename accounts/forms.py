@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 class MakeUserForm(UserCreationForm):
     class Meta:
         model = get_user_model()
-        fields = ("username",)
+        fields = ("username", 'image',)
         labels = {
             "title" : "제목",
             "content" : "내용",

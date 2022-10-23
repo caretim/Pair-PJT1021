@@ -23,12 +23,22 @@
 </form>
 <hr>
 {% for comment in review.comment_set.all %}
-<p>{{comment.content}} | <a href="{% url 'accounts:user_detail' comment.pk  %}">{{comment.user}} </a></p>#코멘트내용 #코멘트 작성자
+<p>{{comment.content}} | <a href="{% url 'accounts:user_detail' comment.pk  %}">{{comment.user}} </a></p>
 {%if comment.user == reuqest.user %}
 <form action="{% url 'reviews:comments_delete' review.pk comment.pk %}" method="POST">
   {% csrf_token %}
   <input type="submit" value="삭제">
 </form>
+<form action="{% url 'reviews:comments_update' review.pk comment.pk %}" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="수정">
+</form>
 {% endif %}
 {% endfor %}
+
+
+
+<script>
+
+</script>
 {% endblock %}
