@@ -3,6 +3,8 @@
 {% block content %}
 {% load static %}
 
+
+
 <div>
     <div class="container">
         <div class="d-flex justify-content-between accounts-detail-div">
@@ -41,42 +43,139 @@
                     </a>
                 </div>
             </div>
+            {% endif %}
         </div>
-        {% endif %}
     </div>
-
 </div>
 <hr>
+
+<!-- 유저 게시물 정보 -->
 <div class="tabmenu-div">
     <div class="tabmenu">
         <ul class="d-flex justify-content-between p-0">
             <li id="tab1" class="" style="width: 450px;">
+                {% if not status %}
                 <input type="radio" checked name="tabmenu" id="tabmenu1">
+                {% else %}
+                <input type="radio" name="tabmenu" id="tabmenu1">
+                {% endif %}
                 <label for="tabmenu1">작성 게시물 ({{pick_user.review_set.all|length}})</label>
                 <div class="tabCon">
                     <h4>{{pick_user.username}}님의 작성글</h4>
-                    {% for post in pick_user.review_set.all %}
+                    {% for post in post_page %}
                     <a href="{% url 'reviews:detail' post.pk %}">
                         <p>{{ post.title }}</p>
                     </a>
                     {% endfor %}
+                    <!--유저 게시물 정보  페이지네이션 -->
+                    <div id="paging">
+                        <ul class="pagination justify-content-center" style="margin-top: 2rem;">
+                            <!-- 이전페이지 -->
+                            {% if post_page.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?&postpage={{ post_page.previous_page_number }}">이전</a>
+                                <!-- href로 뎁스 설정 -->
+
+                                {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+                            </li>
+                            {% endif %}
+                            <!-- 페이지리스트 -->
+                            {% for page_number in post_page.paginator.page_range %}
+                            {% if page_number == post_page.number %}
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="?&postpage={{ page_number }}">{{ page_number }}</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?&postpage={{ page_number }}">{{ page_number }}</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                            <!-- 다음페이지 -->
+                            {% if post_page.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?&postpage={{ post_page.next_page_number }}">다음</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <!-- 페이징끝 -->
                 </div>
+
+                <!-- 유저 코멘트 정보 -->
             </li>
-            <li id="tab2" style="width: 450px;" class=""><input type="radio" name="tabmenu" id="tabmenu2">
+            <li id="tab2" style="width: 450px;" class="">
+                <!-- {% if status == 1 %}
+                <input type="radio" checked name="tabmenu" id="tabmenu1">
+                {% else %}
+                <input type="radio" name="tabmenu" id="tabmenu1">
+                {% endif %} -->
+                {% if status %}
+                <input type="radio" checked name="tabmenu" id="tabmenu2">
+                {% else %}
+                <input type="radio" name="tabmenu" id="tabmenu2">
+                {% endif %}
                 <label for="tabmenu2">작성 댓글 ({{pick_user.comment_set.all|length}})</label>
                 <div class="tabCon">
                     <h4>{{pick_user.username}}님의 댓글</h4>
-                    {% for com in pick_user.comment_set.all %}
+                    {% for com in comment_page %}
                     <a href="{% url 'reviews:detail' com.review_id %}">
                         <p>{{ com.content }}</p>
                     </a>
                     {% endfor %}
+
+                    <!--유저 게시물 정보  페이지네이션 -->
+                    <div id="paging">
+                        <ul class="pagination justify-content-center" style="margin-top: 2rem;">
+                            <!-- 이전페이지 -->
+                            {% if comment_page.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link"
+                                    href="?&comment_page={{ comment_page.previous_page_number }}">이전</a>
+                                <!-- href로 뎁스 설정 -->
+
+                                {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+                            </li>
+                            {% endif %}
+                            <!-- 페이지리스트 -->
+                            {% for page_number in comment_page.paginator.page_range %}
+                            {% if page_number == comment_page.number %}
+                            <li class="page-item active" aria-current="page">
+                                <a class="page-link" href="?&comment_page={{ page_number }}">{{page_number }}</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?&comment_page={{ page_number }}">{{page_number }}</a>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                            <!-- 다음페이지 -->
+                            {% if comment_page.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?&comment_page={{ comment_page.next_page_number }}">다음</a>
+                            </li>
+                            {% else %}
+                            <li class="page-item disabled">
+                                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <!-- 페이징끝 -->
                 </div>
             </li>
         </ul>
     </div>
 </div>
-</div>
+
 
 
 
