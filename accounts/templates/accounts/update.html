@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5%}
+{% load static %}
 {% block content %}
-  <div class="d-flex justify-content-between">
+<div class="d-flex justify-content-between">
   <h1>회원 정보 수정</h1>
-  <img src="{% static 'images/accounts.png' %}" alt="">
-  </div>
-  
-  <form action="" method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% bootstrap_form forms %}
-    <input type="submit" class="btn btn-outline-primary">
-  </form>
+  <img src="{% static '/images/accounts.png' %}" alt="">
+</div>
+
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {% bootstrap_form forms %}
+  <input type="submit" class="btn btn-outline-primary">
+</form>
+
 {% endblock content %}
