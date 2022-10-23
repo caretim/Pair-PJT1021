@@ -43,32 +43,34 @@
         </div>
     </div>
     <hr>
-    <div class="tabmenu out-tabmenu">
-        <ul>
-            <li id="tab1" class="btnCon">
-                <input type="radio" checked name="tabmenu" id="tabmenu1">
-                <label for="tabmenu1">작성 게시물</label>
-                <div class="tabCon">
-                    <h4>{{pick_user.username}}님의 작성글</h4>
-                    {% for post in pick_user.review_set.all %}
-                    <a href="{% url 'reviews:detail' post.pk %}">
-                        <p>{{ post.title }}</p>
-                    </a>
-                    {% endfor %}
-                </div>
-            </li>
-            <li id="tab2" class="btnCon"><input type="radio" name="tabmenu" id="tabmenu2">
-                <label for="tabmenu2">작성 댓글 </label>
-                <div class="tabCon">
-                    <h4>{{pick_user.username}}님의 댓글</h4>
-                    {% for com in pick_user.comment_set.all %}
-                    <a href="{% url 'reviews:detail' com.review_id %}">
-                        <p>{{ com.content }}</p>
-                    </a>
-                    {% endfor %}
-                </div>
-            </li>
-        </ul>
+    <div class="tabmenu-div">
+        <div class="tabmenu out-tabmenu">
+            <ul>
+                <li id="tab1" class="btnCon">
+                    <input type="radio" checked name="tabmenu" id="tabmenu1">
+                    <label for="tabmenu1">작성 게시물</label>
+                    <div class="tabCon">
+                        <h4>{{pick_user.username}}님의 작성글</h4>
+                        {% for post in pick_user.review_set.all %}
+                        <a href="{% url 'reviews:detail' post.pk %}">
+                            <p>{{ post.title }}</p>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </li>
+                <li id="tab2" class="btnCon"><input type="radio" name="tabmenu" id="tabmenu2">
+                    <label for="tabmenu2">작성 댓글 </label>
+                    <div class="tabCon">
+                        <h4>{{pick_user.username}}님의 댓글</h4>
+                        {% for com in pick_user.comment_set.all %}
+                        <a href="{% url 'reviews:detail' com.review_id %}">
+                            <p>{{ com.content }}</p>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 
@@ -93,6 +95,10 @@
         list-style: none;
     }
 
+    .tabmenu-div {
+        width: 100%;
+        height: 30rem;
+    }
     .tabmenu {
         max-width: 600px;
         margin: 0 auto;
