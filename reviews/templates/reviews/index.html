@@ -3,70 +3,84 @@
 {% load static %}
 {% block content %}
 <!-- 캐러셀 -->
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+<div class="text-center">
+  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="https://static.inven.co.kr/column/2022/02/23/news/i14107471944.png" class="d-block w-100" alt="Duck">
+      </div>
+      <div class="carousel-item">
+        <img src="https://i.ytimg.com/vi/m_o0MpnD7oQ/maxresdefault.jpg" class="d-block w-100" alt="OverWatch2">
+      </div>
+      <div class="carousel-item">
+        <img src="https://i.ytimg.com/vi/8A9OGNxYyiU/maxresdefault.jpg" class="d-block w-100" alt="LOL">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://static.inven.co.kr/column/2022/02/23/news/i14107471944.png" class="d-block w-100" alt="Duck">
-    </div>
-    <div class="carousel-item">
-      <img src="https://i.ytimg.com/vi/m_o0MpnD7oQ/maxresdefault.jpg" class="d-block w-100" alt="OverWatch2">
-    </div>
-    <div class="carousel-item">
-      <img src="https://i.ytimg.com/vi/8A9OGNxYyiU/maxresdefault.jpg" class="d-block w-100" alt="LOL">
-    </div>
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
 
-<!-- 카운트  -->
-<div class="index-counter d-flex justify-content-around text-white retro">
-  <div class="col-4">
-    <p class="m-0">등록한 회원 수</p>
-    <h1>{{ all_user.count }}</h1>
+  <!-- 카운트  -->
+  <div class="index-counter d-flex justify-content-around text-white retro">
+    <div class="col-4">
+      <p class="m-0">등록한 회원 수</p>
+      <h1>{{ all_user.count }}</h1>
+    </div>
+    <div class="col-4">
+      <p class="m-0">작성된 글 갯수</p>
+      <h1>{{ all_data.count }}</h1>
+    </div>
+    <div class="col-4">
+      <p class="m-0">작성된 댓글 갯수</p>
+      <h1>{{ all_comment.count }}</h1>
+    </div>
   </div>
-  <div class="col-4">
-    <p class="m-0">작성된 글 갯수</p>
-    <h1>{{ all_data.count }}</h1>
-  </div>
-  <div class="col-4">
-    <p class="m-0">작성된 댓글 갯수</p>
-    <h1>{{ all_comment.count }}</h1>
-  </div>
-</div>
 
-<h2 class="retro"><img src="{% static 'images/info.png' %}" class="info-message">파티원을 찾아보세요!!</h2>
-<div class="row">
-  {% for data in all_data %}
-    <div class="index-card col-4">
-      <a href="{% url 'reviews:detail' data.pk %}">
-        <img src="{% static 'images/goose.png' %}">
-        <div class="index-card-content d-flex justify-content-between align-items-end">
+  <!-- 말풍선 -->
+  <div class="info-message-div d-flex justify-content-center">
+    <img src="{% static 'images/info.png' %}">
+    <div class="speech-bubble d-flex align-items-center">
+      <h2 class="retro info-message">파티원을 찾아보세요!</h2>
+    </div>
+  </div>
+
+  <div class="row row-cols-3 mx-5">
+    {% for data in all_data %}
+    <a href="{% url 'reviews:detail' data.pk %}" class="col index-card-a">
+      <div class="index-card">
+          <!-- 카드 이미지 -->
           <div>
-            <h1>{{ data.title }}</h1>
-            <h2>{{ data.user }}</h2>
+            <img src="{% static 'images/goose.png' %}">
           </div>
-          <div>
-            <p class="m-0 ">인원</p>
-            <h1>{{ data.join_member.all.count }}/{{ data.member }}</h1>
+          <!-- 까만 텍스트 박스 -->
+          <div class="index-card-content d-flex justify-content-between align-items-end">
+            <div class="d-flex flex-column align-items-start">
+              <div class="index-card-content-title-div">
+                <h1>{{ data.title }}</h1>
+              </div>
+              <h2>{{ data.user }}</h2>
+            </div>
+            <div class="d-flex flex-column align-items-end">
+              <p class="m-0">인원</p>
+              <h1>{{ data.join_member.all.count }}/{{ data.member }}</h1>
+            </div>
           </div>
         </div>
       </a>
-    </div>
-  {% endfor %}
+    {% endfor %}
+  </div>
 </div>
-  
 {% endblock %}
 
 

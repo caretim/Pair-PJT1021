@@ -32,9 +32,10 @@
 }
 
 /* index.html */
+/* 카운터 */
 .index-counter {
   background-color: rgb(9, 9, 9);
-  margin: 4rem 0;
+  margin: 6rem 0;
 }
 .index-counter>div {
   padding: 3.5rem 0;
@@ -42,29 +43,93 @@
 .index-counter h1 {
   font-size: 5rem;
 }
-.info-message {
-  width:4.2rem;
-  margin-right: 0.8rem;
+
+/* 말풍선 */
+.info-message-div{
+  margin-bottom: 3rem;
 }
+.info-message-div>img {
+  width:4.2rem;
+  margin-right: 1.5rem;
+}
+.info-message {
+  margin: 0;
+}
+.speech-bubble {
+	position: relative;
+	background: #ffffff;
+	border-radius: 2rem;
+  padding: 1.1rem 1rem;
+  box-shadow: 0.3rem 0.3rem 0.5rem rgb(77, 35, 114, 0.4);
+}
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	border: 1rem solid transparent;
+	border-right-color: #ffffff;
+	border-left: 0;
+	margin-top: -1rem;
+	margin-left: -0.95rem;
+}
+
+/* 카드 리스트 */
 .index-card {
   position: relative;
+  margin: 1rem;
+}
+.index-card-a {
+  color: white;
+  text-decoration: none;
   padding: 0;
 }
-.index-card>a {
-  color: white;
+
+@keyframes index-card-ani{
+  to {
+    transform: translate(0, -0.5rem);
+  }
 }
-.index-card img {
+.index-card-a:hover {
+  color: rgb(158, 113, 178);
+  animation: 0.2s index-card-ani forwards;
+}
+/* 이미지에는 꼭 div로 묶어서 relative 주기!! */
+.index-card div>img {
   width: 100%;
-  object-fit: cover;
+  opacity: 0.7;
+  border-radius: 0.4rem;
 }
 .index-card-content {
   position: absolute;
+  left: 0;
   bottom: 0;
   height: 40%;
   width: 100%;
-  background-color: rgb(0,0,0,0.65);
+  padding: 0.7rem 1.2rem;
+  border-radius: 0 0 0.4rem 0.4rem;
+  background-color: rgb(0,0,0,0.75);
 }
-
+.index-card-content h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.index-card-content-title-div {
+  height: 2.4rem;
+  width: 17rem;
+  text-align: start;
+  margin-bottom: 0.5rem;
+}
+.index-card-content h2 {
+  font-size: 1.3rem;
+  padding-bottom: 2.2rem;
+}
+.index-card-content p {
+  font-size: 1.2rem;
+}
 
 /* 디테일 */
 .pt-btn {
