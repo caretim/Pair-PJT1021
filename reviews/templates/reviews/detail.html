@@ -2,43 +2,83 @@
 {% load django_bootstrap5%}
 {% block content %}
 
-<h1>{{ review.title }}</h1>
-<a href="{% url 'reviews:join_member' review.pk %}">참여</a>
-<div>
-  {% for member in members %}
-  {{member}}
+<!-- 글 헤더(프로필, 글 제목) -->
+  <div class="article-title p-3">
+    <!-- 글 제목 -->
+    <h1 class="text-start fw-bold">
+      <span>[{{ header }}]</span> {{ review.title }}
+    </h1>
+    <!-- 프로필 -->
+    <div>
+      {% if %}
+      
+      {% endif %}
+      <img src="{{ review.image }}" alt="" width: "30px;">
+    </div>
+  </div>
+
+  <div>
+    {% for member in members %}
+    {{member}}
+    {% endfor %}
+  </div>
+  <a href="{% url 'accounts:user_detail' review.pk  %}">{{ review.user }}
+  </a>
+  # 글쓴이
+
+  <!-- 글 내용 -->
+  <div class="review-content p-3">
+    {{review.content}}
+  </div>
+  {{review.member}}
+  # 모집인원
+  {{review.game_name}}
+  # 게임이름
+
+  <!-- 참여하기 버튼 -->
+  <a href="{% url 'reviews:join_member' review.pk %}" class="pt-btn d-flex justify-content-center">
+    {% if request.user in members %}
+    <div class="pt-n rounded">
+    참여취소
+  </div>
+      {% else %}
+      <div class="pt-y rounded">
+        지금 참여하기!
+      </div>
+      {% endif %}
+    </a>
+  
+  {% comment %} 댓글 {% endcomment %}
+  <hr>
+  <h1>댓글</h1>
+  <p>{{review.comment_set.all|length }}개의 댓글이 있습니다.</p>
+  <form action="{% url 'reviews:comments' review.pk  %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form comment_form %}
+    <input type="submit" class="btn btn-outline-primary">
+  </form>
+  <hr>
+  {% for comment in review.comment_set.all %}
+    <p>{{comment.content}}
+      |
+      <a href="{% url 'accounts:user_detail' comment.pk  %}">{{comment.user}}
+      </a>
+    </p>
+    {%if comment.user == reuqest.user %}
+      <form action="{% url 'reviews:comments_delete' review.pk comment.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+      </form>
+      <form action="{% url 'reviews:comments_update' review.pk comment.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="수정">
+      </form>
+    {% endif %}
   {% endfor %}
-</div>
-<a href="{% url 'accounts:user_detail' review.pk  %}">{{ review.user }} </a> # 글쓴이
-{{review.content}} # 글 내용
-{{review.member}} # 모집인원
-{{review.game_name}} # 게임이름
-<hr>
-<h1>댓글</h1>
-<p>{{review.comment_set.all|length }}개의 댓글이 있습니다.</p>
-<form action="{% url 'reviews:comments' review.pk  %}" method="POST">
-  {% csrf_token %}
-  {% bootstrap_form comment_form %}
-  <input type="submit" class="btn btn-outline-primary">
-</form>
-<hr>
-{% for comment in review.comment_set.all %}
-<p>{{comment.content}} | <a href="{% url 'accounts:user_detail' comment.pk  %}">{{comment.user}} </a></p>
-{%if comment.user == reuqest.user %}
-<form action="{% url 'reviews:comments_delete' review.pk comment.pk %}" method="POST">
-  {% csrf_token %}
-  <input type="submit" value="삭제">
-</form>
-<form action="{% url 'reviews:comments_update' review.pk comment.pk %}" method="POST">
-  {% csrf_token %}
-  <input type="submit" value="수정">
-</form>
-{% endif %}
-{% endfor %}
 
+  <script></script>
 
+  <style>
 
-<script>
-
-</script>
+  </style>
 {% endblock %}
