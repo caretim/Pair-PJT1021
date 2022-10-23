@@ -63,12 +63,13 @@ def user_detail(request, user_pk):
     }
     return render(request, "accounts/detail.html", context)
 
-
 @login_required
 def delete(request, user_pk):
-    pick_user = get_user_model().objects.get(pk=user_pk)
+    return render(request, "accounts/delete.html")
 
+@login_required
+def realdelete(request, user_pk):
+    pick_user = get_user_model().objects.get(pk=user_pk)
     if pick_user.pk == request.user.pk:
         pick_user.delete()
-
-    return render(request, "accounts/detail.html")
+    return redirect("reviews:index")

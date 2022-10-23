@@ -170,3 +170,16 @@
 .review-content {
   min-height: 150px;
 }
+
+/* accounts-delete.html */
+.delete-img {
+  width: 150px;
+  height: 150px;
+  margin-bottom: 25px;
+}
+.detail-btn {
+  background-color: rgb(105, 72, 143);
+  padding: 5px 15px;
+  border-radius: 10px;
+  margin: 12px 10px 0;
+}
