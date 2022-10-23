@@ -28,7 +28,7 @@
   margin-top: 3rem;
 }
 .base-contents {
-  padding: 3rem 0;
+  padding: 16px 0;
 }
 
 /* index.html */
@@ -132,10 +132,62 @@
 }
 
 /* 디테일 */
+.detail-container {
+  padding: 60px 180px;
+}
+.detail-header {
+  display: inline-block;
+  background-color: #3C6E71;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 15px;
+}
+.detail-title {
+  display: inline-block;
+  margin: 0 12px;
+}
+.detail-img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+.detail-user-name {
+  font-size: 18px;
+  margin-left: 10px;
+  margin-bottom: 0;
+}
+
+/* 디테일 공사중 */
+.detail-box {
+  background-color: rgb(225, 225, 225);
+  padding: 40px;
+}
+.detail-box-tag {
+  padding: 0 20px;
+}
+.detail-box>.row>div {
+  padding: 5px 30px;
+}
+.detail-box-content {
+  background-color: rgb(209, 203, 217);
+  padding: 16px;
+  height: 100%;
+}
+.detail-box-join {
+  background-color: rgb(209, 203, 217);
+  padding: 16px;
+}
+.detail-box-join h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+/* 공사끝 */
 .pt-btn {
   text-decoration: none;
   font-family: 'HBIOS-SYS';
-  color: white;
+  color: #f9f9f9;
 }
 
 .pt-btn:hover {

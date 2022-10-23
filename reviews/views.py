@@ -47,11 +47,22 @@ def detail(request, review_pk):
     header = headers[review.header_tag-1][1]
     members = review.join_member.all()
     comment_form = CommentForm()
+    games = [
+        "덕몽어스",
+        "리그 오브 레전드",
+        "오버워치2",
+        "어몽어스",
+        "로스트 아크",
+        "메이플스토리",
+        "폴가이즈",
+    ]
+    game = games[review.game_name-1]
     context = {
         "review": review,
         "comment_form": comment_form,
         "members": members,
         "header" : header,
+        "game": game,
     }
     return render(request, "reviews/detail.html", context)
 
