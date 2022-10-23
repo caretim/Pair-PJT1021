@@ -1,3 +1,4 @@
+from tkinter import Widget
 from django import forms
 from .models import Review, Comment
 
@@ -18,3 +19,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ("content",)
+        labels = {
+            "content" : "",
+        }
+        widget = forms.TextInput(attrs={
+                                 'placeholder': "댓글을 작성해주세요."
+                                 })
