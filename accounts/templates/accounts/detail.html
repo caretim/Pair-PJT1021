@@ -5,75 +5,78 @@
 
 <div>
     <div class="container">
-        <div class="d-flex ">
+        <div class="d-flex justify-content-between accounts-detail-div">
             <div class="d-flex justify-contennt-center">
                 {% if pick_user.image %}
-                <img style="border-radius: 10rem;" src="{{pick_user.image.url}}" alt="pick_user.image.url" height="100"
-                    width="100">
+                <img class="accoutns-detail-img-div" src="{{pick_user.image.url}}" alt="pick_user.image.url">
                 {% else %}
-                <img style="border-radius: 10rem;" src="{% static 'images/goose.png' %}" alt="pick_user.image.url"
-                    height="100" width="100">
+                <div>
+                    <img class="accoutns-detail-img-div" src="{% static 'images/goose.png' %}" alt="pick_user.image.url"
+                        height="100" width="100">
+                </div>
                 {% endif %}
                 <div>
                     <div>
-                        <h1>{{pick_user.username}}님의 회원정보</h1>
-                        <p>{{pick_user.username}}님</p>
+                        <p class="detail_name_id">ID : {{pick_user.username}}</p>
+                        <p>email : {{pick_user.email}}</p>
                     </div>
                     <p>회원가입일:{{pick_user.date_joined}}</p>
                 </div>
             </div>
             {% if request.user.pk == pick_user.pk %}
-            <div class="d-flex" style="flex-direction: row-reverse;">
+            <div class="d-flex flex-column">
                 <div>
-                    <div class="accounts_update text-center">
-                        <a class="text-white " style="text-decoration: none;"
-                            href="{% url 'accounts:update' pick_user.pk %}">회원정보수정</a>
-                    </div>
-                    <div class="accounts_delete text-center">
-                        <a class="text-white" style="text-decoration: none;"
-                            href="{% url 'accounts:delete' pick_user.pk %}">회원탈퇴</a>
-                    </div>
+                    <a class="text-white " style="text-decoration: none;"
+                        href="{% url 'accounts:update' pick_user.pk %}">
+                        <div class="accounts_detail_update text-center d-flex justify-content-center">
+                            <img class=" maple_icon " src="{% static 'images/maple.png' %}" alt="">
+                            <p class="m-0">회원정보수정</p>
+                        </div>
+                    </a>
+                    <a class="text-white" style="text-decoration: none;"
+                        href="{% url 'accounts:delete' pick_user.pk %}">
+                        <div class="accounts_detail_delete text-center">
+                            <p class="m-0">회원탈퇴</p>
+                        </div>
+                    </a>
                 </div>
             </div>
-            {% endif %}
         </div>
-        <div>
-            <p>작성한 글 수 : {{pick_user.review_set.all|length}}개</p>
-            <p>작성한 댓글 수 : {{pick_user.comment_set.all|length}}개</p>
-        </div>
+        {% endif %}
     </div>
-    <hr>
-    <div class="tabmenu-div">
-        <div class="tabmenu out-tabmenu">
-            <ul>
-                <li id="tab1" class="btnCon">
-                    <input type="radio" checked name="tabmenu" id="tabmenu1">
-                    <label for="tabmenu1">작성 게시물</label>
-                    <div class="tabCon">
-                        <h4>{{pick_user.username}}님의 작성글</h4>
-                        {% for post in pick_user.review_set.all %}
-                        <a href="{% url 'reviews:detail' post.pk %}">
-                            <p>{{ post.title }}</p>
-                        </a>
-                        {% endfor %}
-                    </div>
-                </li>
-                <li id="tab2" class="btnCon"><input type="radio" name="tabmenu" id="tabmenu2">
-                    <label for="tabmenu2">작성 댓글 </label>
-                    <div class="tabCon">
-                        <h4>{{pick_user.username}}님의 댓글</h4>
-                        {% for com in pick_user.comment_set.all %}
-                        <a href="{% url 'reviews:detail' com.review_id %}">
-                            <p>{{ com.content }}</p>
-                        </a>
-                        {% endfor %}
-                    </div>
-                </li>
-            </ul>
-        </div>
+
+</div>
+<hr>
+<div class="tabmenu-div">
+    <div class="tabmenu">
+        <ul class="d-flex justify-content-between p-0">
+            <li id="tab1" class="" style="width: 450px;">
+                <input type="radio" checked name="tabmenu" id="tabmenu1">
+                <label for="tabmenu1">작성 게시물 ({{pick_user.review_set.all|length}})</label>
+                <div class="tabCon">
+                    <h4>{{pick_user.username}}님의 작성글</h4>
+                    {% for post in pick_user.review_set.all %}
+                    <a href="{% url 'reviews:detail' post.pk %}">
+                        <p>{{ post.title }}</p>
+                    </a>
+                    {% endfor %}
+                </div>
+            </li>
+            <li id="tab2" style="width: 450px;" class=""><input type="radio" name="tabmenu" id="tabmenu2">
+                <label for="tabmenu2">작성 댓글 ({{pick_user.comment_set.all|length}})</label>
+                <div class="tabCon">
+                    <h4>{{pick_user.username}}님의 댓글</h4>
+                    {% for com in pick_user.comment_set.all %}
+                    <a href="{% url 'reviews:detail' com.review_id %}">
+                        <p>{{ com.content }}</p>
+                    </a>
+                    {% endfor %}
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
-
+</div>
 
 
 
@@ -96,11 +99,14 @@
     }
 
     .tabmenu-div {
+        margin-top: 45px;
         width: 100%;
         height: 30rem;
     }
+
     .tabmenu {
-        max-width: 600px;
+        padding: 0 200px;
+        width: 100%;
         margin: 0 auto;
         position: relative;
     }
@@ -149,14 +155,44 @@
         display: block;
     }
 
-    .accounts_update {
-        background-color: rgb(85, 236, 143);
+    .accounts_detail_update {
+        background: #3C6E71;
         text-decoration: none;
+        width: 130px;
+        height: 26px;
+        border-radius: 10px;
+        padding: 4px 0;
     }
 
-    .accounts_delete {
+    .accounts_detail_delete {
         background-color: rgb(204, 69, 69);
         text-decoration: none;
+        width: 130px;
+        height: 26px;
+        border-radius: 10px;
+        padding: 4px 0;
+    }
+
+    .maple_icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    .accounts-detail-div {
+        padding: 40px 180px;
+    }
+
+    .accoutns-detail-img-div {
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+        margin-right: 50px;
+    }
+
+
+    .detail_name_id {
+        font-weight: 700;
+        font-size: 30px;
     }
 </style>
 
