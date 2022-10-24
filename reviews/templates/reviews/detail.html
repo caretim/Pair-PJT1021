@@ -2,126 +2,166 @@
 {% load django_bootstrap5%}
 {% load static %}
 {% block content %}
-<div class="detail-container">
-<!-- 글 헤더(프로필, 글 제목) -->
-  <div class="article-title p-3">
-    <!-- 글 제목 -->
-    <div class="d-flex align-items-center">
-      <div class="detail-header">{{ header }}</div>
-      <h1 class="detail-title text-start fw-bold">{{ review.title }}</h1>
-    </div>
-    <!-- 프로필 -->
-    <div class="d-flex align-items-center">
+  <div class="detail-container">
+    <!-- 글 헤더(프로필, 글 제목) -->
+    <div class="article-title p-1">
+      <!-- 글 제목 -->
+      <div class="d-flex align-items-center">
+        <div class="detail-header">{{ header }}</div>
+        <h1 class="detail-title text-start fw-bold">{{ review.title }}</h1>
+      </div>
+      <!-- 프로필 -->
       <!-- 프로필 사진 -->
-      {% if review.user.image %}
-        <img src="{{ review.user.image.url }}" alt="프로필 이미지" class="detail-img">
-      {% else %}
-        <img src="{% static 'images/goose.png' %}" alt="프로필 대체 이미지" class="detail-img">
-      {% endif %}
-      <h2 class="detail-user-name">{{ review.user }}</h2>
-  </div>
-
-  <hr>
-
-  <div>
-    {% for member in members %}
-    {{member}}
-    {% endfor %}
-  </div>
-  <a href="{% url 'accounts:user_detail' review.pk  %}">{{ review.user }}
-  </a>
-  # 글쓴이
-
-  <!-- 글 내용 -->
-  <div class="review-content p-3">
-    {{ review.content }}
-  </div>
-  #{{ game }}
-  #{{ review.member }}명
-  #{{ header }}
-
-  <!-- 여기 새로 만드는 중 공사중 -->
-  <div class="detail-box">
-    <div class="detail-box-tag">
-      #{{ game }}
-      #{{ review.member }}명
-      #{{ header }}
-    </div>
-    <div class="row">
-      <div class="col-8">
-        <div class="detail-box-content">
-          {{ review.content }}
+      <div class="d-flex align-items-start mt-2 ms-3">
+        {% if review.user.image %}
+          <img src="{{ review.user.image.url }}" alt="프로필 이미지" class="detail-img border border-2">
+        {% else %}
+          <img src="{% static 'images/goose.png' %}" alt="프로필 대체 이미지" class="detail-img border border-2">
+        {% endif %}
+        <div>
+          <h2 class="ms-2 fs-5 simple mb-1">{{ review.user }}</h2>
+          <h2 class="ms-2 text-muted fs-6 simple">{{ review.created_at | date:"Y. m. d"}}</h2>
         </div>
+      </div>
+    </div>
+    <hr>
+
+    <!-- 참석자 이름 -->
+    <div>
+      {% for member in members %}
+        {{member}}
+      {% endfor %}
+    </div>
+    <a href="{% url 'accounts:user_detail' review.user.pk  %}">{{ review.user }}</a>
+
+    <!-- 글 내용 -->
+    <div class="review-content p-3 row">
+      <p class="text-primary">#{{ game }}
+        #{{ review.member }}명 #{{ header }}</p>
+      <div class="col-8 p-3">
+        {{ review.content }}
       </div>
       <div class="col-4">
         <div class="detail-box-join text-center">
           <div>
-            <h2>현재 참가자 명단</h2>
-            <h2>{{ members.count }} / {{ review.member }}</h2>
+            <h2 class="mb-3">현재
+              <span class="text-success">{{ members.count }}</span>
+              명 참여 중</h2>
           </div>
-          {% for member in members %}
-            <div>
+          <div class="container">
+            <!-- 방장 구역 -->
+            <div class="d-flex align-items-center">
+              <!-- 프로필 사진 출력 -->
               {% if review.user.image %}
                 <img src="{{ review.user.image.url }}" alt="프로필 이미지" class="detail-img">
               {% else %}
                 <img src="{% static 'images/goose.png' %}" alt="프로필 대체 이미지" class="detail-img">
               {% endif %}
-              <h2 class="detail-user-name">{{ review.user }}</h2>
-              <img src="" alt="참가자 프로필 사진">
-              <h4>{{ member }}</h4>
-              
+              <!-- 방장 이름 -->
+              <h3 class="detail-user-name">방장:{{ review.user }}</h3>
+              <h2 class="fw-bold">({{ members.count }}/{{ review.member }})</h2>
             </div>
-          {% endfor %}
+            <hr>
+            <!-- 참여자 구역 -->
+            <div class="container">
+              {% for member in members %}
+                <div class="d-flex align-items-center p-2">
+                  <img src="{% static 'images/goose.png' %}" alt="참가자 프로필 사진 아직 어떻게 구현할지 못 정함" class="detail-member-img">
+                  <p class="mb-0 ms-2 detail-member-name">{{ member }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 참여하기 버튼 -->
+      <section class="m-5">
+        <a href="{% url 'reviews:join_member' review.pk %}" class="pt-btn d-flex justify-content-center">
+          {% if request.user in members %}
+            <div class="pt-n rounded">
+              참여취소
+            </div>
+          {% else %}
+            <div class="pt-y rounded">
+              지금 참여하기!
+            </div>
+          {% endif %}
+        </a>
+
+      </section>
+    </div>
+
+    <!-- 여기 새로 만드는 중 공사중 -->
+    <div class="detail-box">
+      <div class="detail-box-tag">
+        #{{ game }}
+        #{{ review.member }}명 #{{ header }}
+      </div>
+      <div class="row">
+        <div class="col-8">
+          <div class="detail-box-content">
+            {{ review.content }}
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="detail-box-join text-center">
+            <div>
+              <h2>현재 참가자 명단</h2>
+              <h2>{{ members.count }}
+                /
+                {{ review.member }}</h2>
+            </div>
+            {% for member in members %}
+              <div>
+                {% if review.user.image %}
+                  <img src="{{ review.user.image.url }}" alt="프로필 이미지" class="detail-img">
+                {% else %}
+                  <img src="{% static 'images/goose.png' %}" alt="프로필 대체 이미지" class="detail-img">
+                {% endif %}
+                <h2 class="detail-user-name">{{ review.user }}</h2>
+                <img src="" alt="참가자 프로필 사진">
+                <h4>{{ member }}</h4>
+              </div>
+            {% endfor %}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- 여기까지 공사중 -->
+    <!-- 여기까지 공사중 -->
 
-  <!-- 참여하기 버튼 -->
-  <a href="{% url 'reviews:join_member' review.pk %}" class="pt-btn d-flex justify-content-center">
-    {% if request.user in members %}
-    <div class="pt-n rounded">
-    참여취소
-  </div>
-      {% else %}
-      <div class="pt-y rounded">
-        지금 참여하기!
+    <!-- 댓글 -->
+    <hr>
+    <h3 class="fw-bold">댓글</h3>
+    <p>{{review.comment_set.all|length }}개의 댓글이 있습니다.</p>
+    <form action="{% url 'reviews:comments' review.pk  %}" method="POST" class="d-flex align-items-start">
+      {% csrf_token %}
+      <div class="w-100">
+        {% bootstrap_form comment_form %}
       </div>
+      <input type="submit" class="btn btn-outline-primary ms-2">
+    </form>
+    <hr>
+    {% for comment in review.comment_set.all %}
+      <p>{{comment.content}}
+        |
+        <a href="{% url 'accounts:user_detail' comment.pk  %}">
+          {{comment.user}}
+        </a>
+        <!-- 만약 댓글 작성한 사람이 참여중인 사람이라면 -->
+        {% if comment.user in members %}
+          <p class="fw-bold">참여중인 사용자입니다.</p>
+        {% endif %}
+      </p>
+      <!-- 댓글 사용자가 작성자라면 수정, 삭제를 보여준다. -->
+      {%if comment.user == reuqest.user %}
+        <form action="{% url 'reviews:comments_delete' review.pk comment.pk %}" method="POST">
+          {% csrf_token %}
+          <input type="submit" value="삭제">
+        </form>
+        <form action="{% url 'reviews:comments_update' review.pk comment.pk %}" method="POST">
+          {% csrf_token %}
+          <input type="submit" value="수정">
+        </form>
       {% endif %}
-    </a>
-  
-  {% comment %} 댓글 {% endcomment %}
-  <hr>
-  <h1>댓글</h1>
-  <p>{{review.comment_set.all|length }}개의 댓글이 있습니다.</p>
-  <form action="{% url 'reviews:comments' review.pk  %}" method="POST">
-    {% csrf_token %}
-    {% bootstrap_form comment_form %}
-    <input type="submit" class="btn btn-outline-primary">
-  </form>
-  <hr>
-  {% for comment in review.comment_set.all %}
-    <p>{{comment.content}}
-      |
-      <a href="{% url 'accounts:user_detail' comment.pk  %}">{{comment.user}}
-      </a>
-    </p>
-    {%if comment.user == reuqest.user %}
-      <form action="{% url 'reviews:comments_delete' review.pk comment.pk %}" method="POST">
-        {% csrf_token %}
-        <input type="submit" value="삭제">
-      </form>
-      <form action="{% url 'reviews:comments_update' review.pk comment.pk %}" method="POST">
-        {% csrf_token %}
-        <input type="submit" value="수정">
-      </form>
-    {% endif %}
-  {% endfor %}
-</div>
-  <script></script>
-
-  <style>
-
-  </style>
-{% endblock %}
+    {% endfor %}
+  {% endblock %}

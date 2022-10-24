@@ -139,7 +139,7 @@
   display: inline-block;
   background-color: #3C6E71;
   color: white;
-  padding: 8px 12px;
+  padding: 3px 10px;
   border-radius: 10px;
   font-size: 15px;
 }
@@ -152,10 +152,25 @@
   width: 40px;
   height: 40px;
 }
+
+.detail-member-img {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
 .detail-user-name {
+  font-family: 'HBIOS-SYS';
   font-size: 18px;
   margin-left: 10px;
-  margin-bottom: 0;
+  margin-bottom: 8px;
+}
+
+.detail-member-name {
+  font-family: 'HBIOS-SYS';
+  font-size: 15px;
+  margin-left: 10px;
+  margin-bottom: 8px;
 }
 
 /* 디테일 공사중 */
@@ -177,6 +192,7 @@
 .detail-box-join {
   background-color: rgb(209, 203, 217);
   padding: 16px;
+  min-height: 500px;
 }
 .detail-box-join h2 {
   font-size: 20px;
@@ -195,16 +211,16 @@
 }
 
 .pt-y {
-  width: 10%;
-  padding: 3px;
+  width: 20%;
+  padding: 10px;
   background-color: #2d6a4f;
   margin: auto;
   text-align: center;
 }
 
 .pt-n {
-  width: 10%;
-  padding: 3px;
+  width: 20%;
+  padding: 10px;
   background-color: #a1070c;
   margin: auto;
   text-align: center;
@@ -217,10 +233,6 @@
 .pt-n:hover {
   background-color: #910409;
   text-decoration: none;
-}
-
-.review-content {
-  min-height: 150px;
 }
 
 /* accounts-delete.html */
