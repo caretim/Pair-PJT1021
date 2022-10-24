@@ -6,7 +6,7 @@ from .models import Review, Comment
 class PostForm(forms.ModelForm):
     class Meta:
         model = Review
-        fields = ("title", "header_tag", "game_name", "member", "content", )
+        fields = ("title", "game_name", "member", "content", )
         labels = {
             "title" : "제목",
             "header_tag": "말머리",

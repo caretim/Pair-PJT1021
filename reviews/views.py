@@ -7,7 +7,10 @@ from django.contrib.auth import get_user_model
 from django.db.models import Q
 
 # Create your views here.
-
+headers = [
+    (1, "모집합니다"),
+    (2, "참여합니다"),
+]
 
 @login_required
 def create(request):
@@ -17,7 +20,11 @@ def create(request):
             review = forms.save(commit=False)
             review.user = request.user
             review.save()
-            return redirect("reviews:index")
+            if review.header_tag == 1:
+                review.join_member.add(request.user)
+                return redirect("reviews:index")
+            else:
+                return redirect("reviews:index")
     else:
         forms = PostForm()
     context = {
@@ -37,10 +44,7 @@ def index(request):
     }
     return render(request, "reviews/index.html", context)
 
-headers = [
-    (1, "모집합니다"),
-    (2, "참여합니다"),
-]
+
 
 def detail(request, review_pk):
     review = Review.objects.get(pk=review_pk)
@@ -52,8 +56,6 @@ def detail(request, review_pk):
         "리그 오브 레전드",
         "오버워치2",
         "어몽어스",
-        "로스트 아크",
-        "메이플스토리",
         "폴가이즈",
     ]
     game = games[review.game_name-1]
