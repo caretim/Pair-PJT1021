@@ -95,8 +95,11 @@
   animation: 0.2s index-card-ani forwards;
 }
 /* 이미지에는 꼭 div로 묶어서 relative 주기!! */
-.index-card div>img {
-  width: 100%;
+
+.index-card-img {
+  width: 376px;
+  height: 376px;
+  object-fit: cover;
   opacity: 0.7;
   border-radius: 0.4rem;
 }

@@ -61,7 +61,17 @@
       <div class="index-card">
           <!-- 카드 이미지 -->
           <div>
-            <img src="{% static 'images/goose.png' %}">
+            {% if data.game_name == 1 %}
+              <img src="{% static 'images/goose.png' %}" class="index-card-img">
+            {% elif data.game_name == 2 %}
+              <img src="https://image.fmkorea.com/files/attach/new/20200910/14339012/2691161141/3084512844/a7a255932cf3291ee6b6fe7ffb156a2e.jpg" class="index-card-img">
+            {% elif data.game_name == 3 %}
+              <img src="https://static.wikia.nocookie.net/overwatch152/images/b/bf/%EC%98%A4%EB%B2%84%EC%9B%8C%EC%B9%98_%EB%A1%9C%EA%B3%A0.jpg/revision/latest?cb=20160616114533&path-prefix=ko" class="index-card-img">
+            {% elif data.game_name == 4 %}
+              <img src="https://img.etnews.com/photonews/2101/1379314_20210128120525_438_0001.jpg" class="index-card-img">
+            {% else %}
+              <img src="https://cdn2.unrealengine.com/fall-guys-is-now-free-for-all-on-the-epic-games-store-1920x1080-64479af04272.jpg" class="index-card-img">
+            {% endif %}
           </div>
           <!-- 까만 텍스트 박스 -->
           <div class="index-card-content d-flex justify-content-between align-items-end">
@@ -81,14 +91,15 @@
     {% endfor %}
   </div>
 </div>
+
+<script>
+  const index_card_a = document.querySelectorAll('.index-card-a')
+  for (const a of index_card_a) {
+    a.addEventListener('mouseover', function() {
+      for (img of index_card_a.childeren.img) {
+        img.style.opacity = 1;
+      }
+    })
+  }
+</script>
 {% endblock %}
-
-
-<!--
-롤: https://image.fmkorea.com/files/attach/new/20200910/14339012/2691161141/3084512844/a7a255932cf3291ee6b6fe7ffb156a2e.jpg
-옵치: https://static.wikia.nocookie.net/overwatch152/images/b/bf/%EC%98%A4%EB%B2%84%EC%9B%8C%EC%B9%98_%EB%A1%9C%EA%B3%A0.jpg/revision/latest?cb=20160616114533&path-prefix=ko
-어몽어스: https://img.etnews.com/photonews/2101/1379314_20210128120525_438_0001.jpg
-로아: https://img.hankyung.com/photo/202106/61241_201145_2219.jpg
-메이플: https://image.ytn.co.kr/general/jpg/2021/0311/202103110915014429_d.jpg
-폴가이즈: https://cdn2.unrealengine.com/fall-guys-is-now-free-for-all-on-the-epic-games-store-1920x1080-64479af04272.jpg
--->

@@ -12,6 +12,14 @@ headers = [
     (2, "참여합니다"),
 ]
 
+games = [
+    "덕몽어스",
+    "리그 오브 레전드",
+    "오버워치2",
+    "어몽어스",
+    "폴가이즈",
+]
+
 @login_required
 def create(request):
     if request.method == "POST":
@@ -37,6 +45,7 @@ def index(request):
     all_data = Review.objects.order_by("-pk")
     all_user = get_user_model().objects.order_by("-pk")
     all_comment = Comment.objects.order_by("-pk")
+    
     context = {
         "all_data": all_data,
         "all_user": all_user,
@@ -51,13 +60,6 @@ def detail(request, review_pk):
     header = headers[review.header_tag-1][1]
     members = review.join_member.all()
     comment_form = CommentForm()
-    games = [
-        "덕몽어스",
-        "리그 오브 레전드",
-        "오버워치2",
-        "어몽어스",
-        "폴가이즈",
-    ]
     game = games[review.game_name-1]
     context = {
         "review": review,
