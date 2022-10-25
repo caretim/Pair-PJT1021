@@ -41,7 +41,7 @@ def logout(request):
 @login_required
 def update(request, user_pk):
     infos = get_user_model().objects.get(pk=user_pk)
-
+    pick_user = infos
     if request.method == "POST":
         forms = ChangeUserForm(request.POST, request.FILES, instance=infos)
         if forms.is_valid():
@@ -52,6 +52,7 @@ def update(request, user_pk):
         forms = ChangeUserForm(instance=infos)
     context = {
         "forms": forms,
+        'pick_user':pick_user
     }
     return render(request, "accounts/update.html", context)
 
