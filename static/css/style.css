@@ -4,6 +4,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 @font-face {
   font-family: 'Pretendard-Regular';
   src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
@@ -14,6 +15,7 @@
 .simple {
   font-family: 'Pretendard-Regular';
 }
+
 .retro {
   font-family: 'HBIOS-SYS';
 }
@@ -22,11 +24,13 @@
 .bg {
   background-color: #2a0b49;
 }
+
 .bg>div {
-  background-color:#ededed;
+  background-color: #ededed;
   border-radius: 1rem;
   margin-top: 3rem;
 }
+
 .base-contents {
   padding: 16px 0;
 }
@@ -37,41 +41,47 @@
   background-color: rgb(9, 9, 9);
   margin: 6rem 0;
 }
+
 .index-counter>div {
   padding: 3.5rem 0;
 }
+
 .index-counter h1 {
   font-size: 5rem;
 }
 
 /* 말풍선 */
-.info-message-div{
+.info-message-div {
   margin-bottom: 3rem;
 }
+
 .info-message-div>img {
-  width:4.2rem;
+  width: 4.2rem;
   margin-right: 1.5rem;
 }
+
 .info-message {
   margin: 0;
 }
+
 .speech-bubble {
-	position: relative;
-	background: #ffffff;
-	border-radius: 2rem;
+  position: relative;
+  background: #ffffff;
+  border-radius: 2rem;
   padding: 1.1rem 1rem;
   box-shadow: 0.3rem 0.3rem 0.5rem rgb(77, 35, 114, 0.4);
 }
+
 .speech-bubble:after {
-	content: '';
-	position: absolute;
-	left: 0;
-	top: 50%;
-	border: 1rem solid transparent;
-	border-right-color: #ffffff;
-	border-left: 0;
-	margin-top: -1rem;
-	margin-left: -0.95rem;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  border: 1rem solid transparent;
+  border-right-color: #ffffff;
+  border-left: 0;
+  margin-top: -1rem;
+  margin-left: -0.95rem;
 }
 
 /* 카드 리스트 */
@@ -79,21 +89,24 @@
   position: relative;
   margin: 1rem;
 }
+
 .index-card-a {
   color: white;
   text-decoration: none;
   padding: 0;
 }
 
-@keyframes index-card-ani{
+@keyframes index-card-ani {
   to {
     transform: translate(0, -0.5rem);
   }
 }
+
 .index-card-a:hover {
   color: rgb(158, 113, 178);
   animation: 0.2s index-card-ani forwards;
 }
+
 /* 이미지에는 꼭 div로 묶어서 relative 주기!! */
 
 .index-card-img {
@@ -103,6 +116,7 @@
   opacity: 0.7;
   border-radius: 0.4rem;
 }
+
 .index-card-content {
   position: absolute;
   left: 0;
@@ -111,8 +125,9 @@
   width: 100%;
   padding: 0.7rem 1.2rem;
   border-radius: 0 0 0.4rem 0.4rem;
-  background-color: rgb(0,0,0,0.75);
+  background-color: rgb(0, 0, 0, 0.75);
 }
+
 .index-card-content h1 {
   font-size: 2.2rem;
   font-weight: bold;
@@ -120,16 +135,19 @@
   overflow: hidden;
   white-space: nowrap;
 }
+
 .index-card-content-title-div {
   height: 2.4rem;
   width: 17rem;
   text-align: start;
   margin-bottom: 0.5rem;
 }
+
 .index-card-content h2 {
   font-size: 1.3rem;
   padding-bottom: 2.2rem;
 }
+
 .index-card-content p {
   font-size: 1.2rem;
 }
@@ -138,6 +156,7 @@
 .detail-container {
   padding: 60px 180px;
 }
+
 .detail-header {
   display: inline-block;
   background-color: #3C6E71;
@@ -146,10 +165,12 @@
   border-radius: 10px;
   font-size: 15px;
 }
+
 .detail-title {
   display: inline-block;
   margin: 0 12px;
 }
+
 .detail-img {
   border-radius: 50%;
   width: 40px;
@@ -181,27 +202,33 @@
   background-color: rgb(225, 225, 225);
   padding: 40px;
 }
+
 .detail-box-tag {
   padding: 0 20px;
 }
+
 .detail-box>.row>div {
   padding: 5px 30px;
 }
+
 .detail-box-content {
   background-color: rgb(209, 203, 217);
   padding: 16px;
   height: 100%;
 }
+
 .detail-box-join {
   background-color: rgb(209, 203, 217);
   padding: 16px;
   min-height: 500px;
 }
+
 .detail-box-join h2 {
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 5px;
 }
+
 /* 공사끝 */
 .pt-btn {
   text-decoration: none;
@@ -228,6 +255,7 @@
   margin: auto;
   text-align: center;
 }
+
 .pt-y:hover {
   background-color: rgb(7 85 46);
   text-decoration: none;
@@ -244,9 +272,108 @@
   height: 150px;
   margin-bottom: 25px;
 }
+
 .detail-btn {
   background-color: rgb(105, 72, 143);
   padding: 5px 15px;
   border-radius: 10px;
   margin: 12px 10px 0;
+}
+
+/* accounts-detail& delete.html */
+.tabmenu-div {
+  margin-top: 45px;
+  width: 100%;
+  height: 30rem;
+}
+
+.tabmenu {
+  padding: 0 200px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.tabmenu ul {
+  position: relative;
+}
+
+.tabmenu ul li {
+  display: inline-block;
+  width: 33.33%;
+  float: left;
+  text-align: center;
+  background: #f9f9f9;
+  line-height: 40px;
+}
+
+.tabmenu label {
+  display: block;
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+}
+
+.tabmenu input {
+  display: none;
+}
+
+.tabCon {
+  display: none;
+  width: 100%;
+  text-align: left;
+  padding: 20px;
+  position: absolute;
+  left: 0;
+  top: 40px;
+  box-sizing: border-box;
+  border: 5px solid #f9f9f9;
+}
+
+.tabmenu input:checked~label {
+  background: #ccc;
+}
+
+.tabmenu input:checked~.tabCon {
+  display: block;
+}
+
+.accounts_detail_update {
+  background: #3C6E71;
+  text-decoration: none;
+  width: 130px;
+  height: 26px;
+  border-radius: 10px;
+  padding: 4px 0;
+}
+
+.accounts_detail_delete {
+  background-color: rgb(204, 69, 69);
+  text-decoration: none;
+  width: 130px;
+  height: 26px;
+  border-radius: 10px;
+  padding: 4px 0;
+}
+
+.maple_icon {
+  width: 20px;
+  height: 20px;
+}
+
+.accounts-detail-div {
+  padding: 40px 180px;
+}
+
+.accoutns-detail-img-div {
+  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  margin-right: 50px;
+}
+
+
+.detail_name_id {
+  font-weight: 700;
+  font-size: 30px;
 }

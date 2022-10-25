@@ -2,15 +2,121 @@
 {% load django_bootstrap5%}
 {% load static %}
 {% block content %}
-<div class="d-flex justify-content-between">
-  <h1>회원 정보 수정</h1>
-  <img src="{% static '/images/accounts.png' %}" alt="">
+<div style="padding: 0 180px;">
+
+  <div class="d-flex justify-content-between">
+    <div class="align-items-center">
+      <h1 class=" text-center accounts-update-title ">회원정보수정
+      </h1>
+    </div>
+    <img class="accoutns-update-img-div " src="{% static 'images/shit.png' %}" alt="">
+  </div>
+  <hr>
+
+  <div>
+    <div class="container">
+      <div class="d-flex justify-content-between">
+        <div class="d-flex justify-contennt-center">
+          {% if pick_user.image %}
+          <img class="accoutns-detail-img-div" src="{{pick_user.image.url}}" alt="pick_user.image.url">
+          {% else %}
+          <div>
+            <img class="accoutns-detail-img-div" src="{% static 'images/goose.png' %}" alt="pick_user.image.url"
+              height="100" width="100">
+          </div>
+          {% endif %}
+          <div>
+            <div>
+              <p class="detail_name_id">ID : {{pick_user.username}}</p>
+              <p>email : {{pick_user.email}}</p>
+            </div>
+            <p>회원가입일:{{pick_user.date_joined}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="d-flex justify-content-between">
+
+    <img src="{% static '/images/accounts.png' %}" alt="">
+  </div>
+  <div>
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% bootstrap_form forms %}
+      <input type="submit" class="pt-y rounded d-flex justify-content-center">
+    </form>
+  </div>
+  <!-- 회원탈퇴 아이콘 -->
+  <div class="d-flex flex-column mx-4">
+    <div class="d-flex justify-content-end">
+      <a class="text-white " style="text-decoration: none; " href="{% url 'accounts:delete' pick_user.pk %}">
+        <div class="accounts_detail_delete text-center d-flex justify-content-center">
+          <img class=" maple_icon " src="{% static 'images/exit.jpg' %}" alt="">
+          <p class="m-0">회원탈퇴</p>
+        </div>
+      </a>
+    </div>
+  </div>
+
 </div>
 
-<form action="" method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-  {% bootstrap_form forms %}
-  <input type="submit" class="btn btn-outline-primary">
-</form>
+<style>
+  .accounts_detail_update {
+    background: #3C6E71;
+    text-decoration: none;
+    width: 130px;
+    height: 26px;
+    border-radius: 10px;
+    padding: 4px 0;
+  }
 
+  .accounts_detail_delete {
+    background-color: rgb(204, 69, 69);
+    text-decoration: none;
+    width: 130px;
+    height: 26px;
+    border-radius: 10px;
+    padding: 4px 0;
+  }
+
+  .maple_icon {
+    width: 20px;
+    height: 20px;
+  }
+
+
+
+  .accoutns-detail-img-div {
+    border-radius: 50%;
+    width: 150x;
+    height: 150px;
+    margin-right: 30px;
+  }
+
+
+  .accoutns-update-img-div {
+    border-radius: 25%;
+    width: 100px;
+    height: 100px;
+    margin-right: 30px;
+    margin-top: 10px;
+  }
+
+  .detail_name_id {
+    font-weight: 700;
+    font-size: 30px;
+  }
+
+  .accounts-update-title {
+    font-size: 40px;
+    margin-top: 60px;
+    margin-left: 100px;
+    font-weight: 700;
+
+
+  }
+</style>
 {% endblock content %}
