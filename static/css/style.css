@@ -382,3 +382,7 @@
   font-weight: 700;
   font-size: 30px;
 }
+
+.search-con:hover {
+  width: 150%;
+}
