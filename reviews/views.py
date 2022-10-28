@@ -45,8 +45,10 @@ def index(request):
     all_data = Review.objects.order_by("-pk")
     all_user = get_user_model().objects.order_by("-pk")
     all_comment = Comment.objects.order_by("-pk")
-    
     context = {
+        "sum_data": all_data,
+        "sum_user": all_user,
+        "sum_comment": all_comment,
         "all_data": all_data,
         "all_user": all_user,
         "all_comment": all_comment,
@@ -150,24 +152,39 @@ def pick_game(request, game_pk):
 
 
 def search(request):
-    all_data = Review.objects.all()
-    search_data = request.GET.get("search", "")
+        sum_data = Review.objects.order_by("-pk")
+        sum_user = get_user_model().objects.order_by("-pk")
+        sum_comment = Comment.objects.order_by("-pk")
+        all_data = Review.objects.all()
+        search_data = request.GET.get("search", "")
 
-    if search_data:
-        return_data = all_data.filter(
-            Q(title__icontains=search_data) | Q(content__icontains=search_data)
-        )
-    if len(search_data) == 0:
-        none_info = "공백을 입력하셨습니다."
-        context = {
-            "none_info": none_info,
-        }
+        if search_data:
+            return_data = all_data.filter(
+                Q(title__icontains=search_data) | Q(content__icontains=search_data)
+            )
+            context = {
+            "sum_data": sum_data,
+            "sum_user": sum_user,
+            "sum_comment": sum_comment,
+            "all_data" : return_data,
+            }
+        if len(search_data) == 0:
+            none_info = "공백을 입력하셨습니다."
+            context = {
+                "sum_data": sum_data,
+                "sum_user": sum_user,
+                "sum_comment": sum_comment,
+                "none_info": none_info,
+            }
 
-    elif len(return_data) == 0:
-        none_info = "검색 결과가 없습니다."
-        context = {
-            "none_info": none_info,
-        }
+        elif len(return_data) == 0:
+            none_info = "검색 결과가 없습니다."
+            context = {
+                "sum_data": sum_data,
+                "sum_user": sum_user,
+                "sum_comment": sum_comment,
+                "none_info": none_info,
+            }
         return render(request, "reviews/index.html", context)
 
 
