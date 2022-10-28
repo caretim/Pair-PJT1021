@@ -153,6 +153,10 @@
 }
 
 /* 디테일 */
+.review-content {
+  background-color: #e5e5e5;
+  font-size: 1.3rem;
+}
 .detail-container {
   padding: 60px 180px;
 }
@@ -219,6 +223,7 @@
 
 .detail-box-join {
   background-color: rgb(209, 203, 217);
+  box-shadow: 10px 14px 16px rgb(143 127 152 / 58%);
   padding: 16px;
   min-height: 500px;
 }
@@ -241,7 +246,7 @@
 }
 
 .pt-y {
-  width: 20%;
+  width: 40%;
   padding: 10px;
   background-color: #2d6a4f;
   margin: auto;

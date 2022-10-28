@@ -120,13 +120,25 @@ def comments_delete(request, review_pk, comment_pk):
 
 @login_required
 def join_member(request, review_pk):
-    review = get_object_or_404(Review, pk=review_pk)
-    if review.join_member.filter(pk=request.user.pk).exists():
-        review.join_member.remove(request.user)
-    else:
-        review.join_member.add(request.user)
-    return redirect("reviews:detail", review_pk)
-    # return HttpResponseForbidden()
+    # if request.method == "POST":
+        review = get_object_or_404(Review, pk=review_pk)
+        # review = Review.objects.get(pk=review_pk)
+        if len(review.join_member.all()) < review.member:
+            if review.join_member.filter(pk=request.user.pk).exists():
+                review.join_member.remove(request.user)
+            else:
+                review.join_member.add(request.user)
+            return redirect("reviews:detail", review_pk)
+        # return HttpResponseForbidden()
+        
+        else:
+            # 모집인원이 꽉 찼는데 이미 참여하고 있는 상태라면,
+            if review.join_member.filter(pk=request.user.pk).exists():
+                review.join_member.remove(request.user)
+            # 메시지 처리(나중에)
+            return redirect("reviews:detail", review_pk)
+                
+            
 
 
 def pick_game(request, game_pk):

@@ -26,22 +26,14 @@
     </div>
     <hr>
 
-    <!-- 참석자 이름 -->
-    <div>
-      {% for member in members %}
-        {{member}}
-      {% endfor %}
-    </div>
-    <a href="{% url 'accounts:user_detail' review.user.pk  %}">{{ review.user }}</a>
-
     <!-- 글 내용 -->
+    <p class="text-primary">#{{ game }}
+      #{{ review.member }}명 #{{ header }}</p>
     <div class="review-content p-3 row">
-      <p class="text-primary">#{{ game }}
-        #{{ review.member }}명 #{{ header }}</p>
-      <div class="col-8 p-3">
+      <div class="col-6 p-3">
         {{ review.content }}
       </div>
-      <div class="col-4">
+      <div class="col-6 p-5">
         <div class="detail-box-join text-center">
           <div>
             <h2 class="mb-3">현재
@@ -76,58 +68,23 @@
       </div>
       <!-- 참여하기 버튼 -->
       <section class="m-5">
-        <a href="{% url 'reviews:join_member' review.pk %}" class="pt-btn d-flex justify-content-center">
-          {% if request.user in members %}
-            <div class="pt-n rounded">
-              참여취소
-            </div>
-          {% else %}
-            <div class="pt-y rounded">
-              지금 참여하기!
-            </div>
-          {% endif %}
-        </a>
 
+        <!-- 방장이 아닐때만 참여버튼을 출력 -->
+        {% if not request.user == review.user %}
+          <a href="{% url 'reviews:join_member' review.pk %}" class="pt-btn d-flex justify-content-center">
+            {% if request.user in members %}
+              <div class="pt-n rounded">
+                참여취소
+              </div>
+            {% else %}
+              <div class="pt-y rounded">
+                지금 참여하기!
+              </div>
+            {% endif %}
+          </a>
+        {% endif %}
       </section>
     </div>
-
-    <!-- 여기 새로 만드는 중 공사중 -->
-    <div class="detail-box">
-      <div class="detail-box-tag">
-        #{{ game }}
-        #{{ review.member }}명 #{{ header }}
-      </div>
-      <div class="row">
-        <div class="col-8">
-          <div class="detail-box-content">
-            {{ review.content }}
-          </div>
-        </div>
-        <div class="col-4">
-          <div class="detail-box-join text-center">
-            <div>
-              <h2>현재 참가자 명단</h2>
-              <h2>{{ members.count }}
-                /
-                {{ review.member }}</h2>
-            </div>
-            {% for member in members %}
-              <div>
-                {% if review.user.image %}
-                  <img src="{{ review.user.image.url }}" alt="프로필 이미지" class="detail-img">
-                {% else %}
-                  <img src="{% static 'images/goose.png' %}" alt="프로필 대체 이미지" class="detail-img">
-                {% endif %}
-                <h2 class="detail-user-name">{{ review.user }}</h2>
-                <img src="" alt="참가자 프로필 사진">
-                <h4>{{ member }}</h4>
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- 여기까지 공사중 -->
 
     <!-- 댓글 -->
     <hr>
