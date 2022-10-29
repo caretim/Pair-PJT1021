@@ -195,7 +195,7 @@ def search(request):
 #             forms = CommentForm(request.POST, instance=comment)
 #             if forms.is_valid():
 #                 forms.save()
-#                 return redirect ("reviews:detial",article_pk)
+#                 return redirect ("reviews:detail",article_pk)
 
 
 #     return redirect("reviews:detail" ,article_pk)
