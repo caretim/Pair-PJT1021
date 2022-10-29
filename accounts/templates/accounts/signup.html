@@ -1,10 +1,36 @@
 {% extends 'base.html' %}
 {% load django_bootstrap5%}
 {% block content %}
-  <h1>회원가입</h1>
-  <form action="" method="POST">
-    {% csrf_token %}
-    {% bootstrap_form forms %}
-    <input type="submit" class="btn btn-outline-primary">
-  </form>
+  <div class="container">
+    <div class="row d-flex align-items-center" style="height: 600px;">
+      <div class="col-6 mx-auto">
+        <h1 class="fw-bold">회원가입</h1>
+        <hr>
+        <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div>
+            <div>
+              <label for="id_username" class="retro mb-3">이름을 입력하세요.</label>
+              <input type="text" name="username" maxlength="150" autofocus="autofocus" class="form-control" placeholder="구스구스덕" required="required" id="id_username">
+            </div>
+            <div>
+              <label for="id_image" class="retro mb-3">프로필 사진을 선택하세요.</label>
+              <input type="file" name="image" accept="image/*" class="form-control" id="id_image">
+            </div>
+            <div>
+              <label for="id_password1" class="retro mb-3">비밀번호를 입력하세요.</label>
+              <input type="password" name="password1" autocomplete="new-password" class="form-control" placeholder="비밀번호" required="required" id="id_password1">
+            </div>
+            <div>
+              <label for="id_password2" class="retro mb-3">비밀번호 확인</label>
+              <input type="password" name="password2" autocomplete="new-password" class="form-control" placeholder="비밀번호 확인" required="required" id="id_password2">
+            </div>
+          </div>
+          <div class="d-flex justify-content-center mt-3">
+            <input type="submit" class="d-grid btn ms-5" value="가입하기">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 {% endblock content %}

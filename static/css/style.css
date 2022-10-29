@@ -26,6 +26,7 @@
 }
 
 .bg>div {
+  min-height: 100vh;
   background-color: #ededed;
   border-radius: 1rem;
   margin-top: 3rem;
@@ -386,6 +387,21 @@
 
 .search-con:hover {
   width: 150%;
+}
+
+.login_btn {
+  width: 5rem;
+  height: 5rem;
+  border: none;
+  background-image: url('../images/asfafed.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.login_btn:hover {
+  border: none;
+  background-image: url('../images/shit.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 /* 대문페이지 */
