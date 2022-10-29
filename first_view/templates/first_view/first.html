@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>welcome</title>
+    {% load static %}
+    {% load django_bootstrap5 %}
+    {% bootstrap_css %}
+
+</head>
+
+<body>
+    <!-- Ref https://www.reddit.com/r/javascript/comments/dolagh/apple_airpods_pro_page_uses_a_lot_of_images_so_i/ -->
+    <section>
+        <section>
+            <video id="video" width="998" height="1000" playsinline poster="">
+                <source src="{% static 'videos/first.mp4' %}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="scroll-dummy">
+                <h1>덕몽어스 같이 할 사람!!</h1>
+
+                <audio id="bell_sound" src="{% static 'sound/bellsound.mp3' %}"> </audio>
+
+                <p>
+                    다 같이 하면 재밌는 구스구스덕 모두 함께 즐겨요 ㅎㅎ
+                </p>
+                <p>스크롤을 내려주세요!</p>
+                <p>화면 배율을 100%로 맞춰주세요!</p>
+                <p>
+                    Video from gaggle, Inc.
+                </p>
+                <div id="bell" onclick="" class="bell noaml-bell"
+                    style="width: 40rem; height: 30rem; border-radius: 5rem;">
+
+                </div>
+
+
+
+
+        </section>
+        <style>
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                margin: 0;
+                background: #000;
+                touch-action: pan-y;
+                height: 100vh;
+                overflow: auto;
+            }
+
+            section {
+                display: flex;
+                justify-content: center;
+            }
+
+            video {
+                position: fixed;
+                z-index: 0;
+                max-width: 100%;
+            }
+
+
+            code {
+                font-family: monospace;
+                background: #333;
+                border: 1px solid #999;
+                border-radius: 4px;
+                padding: 2px 4px;
+            }
+
+            .bell {
+                display: none;
+            }
+
+            .scroll-bell {
+                z-index: 2;
+                z-index: 1;
+                position: fixed;
+                display: block;
+                width: 30%;
+                margin: 0 auto;
+                top: 14rem;
+                left: 35rem;
+            }
+
+            .noaml-bell {
+                background-image: url(https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FmlDd0%2FbtrPPODJUOx%2FhkdbSSW5IYuk3uQ53jwTo0%2Fimg.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+
+            .noaml-bell:hover {
+                background-image: url(https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fqia9A%2FbtrPQdwiGEO%2F9ZlneJbxguKfpvMKKunupk%2Fimg.jpg);
+                background-repeat: no-repeat;
+                background-size: cover;
+
+            }
+
+
+            .scroll-dummy {
+                height: 2000px;
+                max-width: 998px;
+                padding: 20px;
+                z-index: 1;
+                font-family: sans-serif;
+            }
+
+            .scroll-dummy h1 {
+                font-size: 80px;
+                font-weight: 700;
+                padding: 200px 0;
+                color: white;
+            }
+
+            .scroll-dummy p,
+            .scroll-dummy a {
+                font-size: 20px;
+                color: #ccc;
+                line-height: 1.4;
+            }
+
+            .start-img {
+                margin: 0 auto;
+                width: 400px;
+                height: 350px;
+
+            }
+        </style>
+
+        <script>
+            var FRAMES = 500;
+            var FPS = 30;
+            var video = document.getElementById('video');
+            const bell = document.getElementById("bell");
+
+
+            window.addEventListener('scroll', function (e) {
+                var time = (window.scrollY / 1000) * FRAMES / FPS;
+                video.currentTime = time;
+
+                console.log(time);
+                // alert('Hizo scroll')
+            });
+
+            window.addEventListener('load', function (e) {
+                video.pause();
+                video.currentTime = 0;
+            });
+
+            window.addEventListener('scroll', () => {
+                let scrollLocation = document.documentElement.scrollTop;
+                let windowHeight = window.innerHeight;
+                let fullHeight = document.body.scrollHeight;
+
+                if (scrollLocation + windowHeight >= fullHeight) {
+                    bell.classList.remove("bell")
+                    bell.classList.add("scroll-bell")
+                }
+                if (scrollLocation + windowHeight < fullHeight) {
+                    bell.classList.remove("scroll-bell")
+                    bell.classList.add("bell")
+                    bellsound.play();
+                }
+            })
+
+            bell.addEventListener("click", function () {
+                bell_sound.play();
+                setTimeout(() => { location.href = 'http://127.0.0.1:8000/reviews/index' }, 2500);
+            })
+
+
+        </script>
+</body>
+
+</html>
