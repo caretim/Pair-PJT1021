@@ -107,6 +107,28 @@
     </div>
   </div>
 
+      <!-- 말풍선 -->
+      <div class="info-message-div d-flex justify-content-center" style="margin-top: 120px;">
+        <img src=" {% static 'images/info.png' %}">
+        <div class="speech-bubble d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample">
+          <h2 class="retro info-message">업데이트 예정입니다.</h2>
+        </div>
+      </div>
+
+    <div style="min-height: 25px;">
+      <div class="collapse collapse-horizontal mx-auto" id="collapseWidthExample2">
+        <div class="border-0 mx-auto" style="width: 300px;">
+          <form action="{% url 'reviews:search' %}">
+            {% csrf_token %}
+            <input type="text" class="search-bar form-control rounded-pill" placeholder="많관부" name="search">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mb-5">
+      <img src="{% static '/images/ing.png' %}"style="width: 13%;" alt="">
+    </div>
+
   <script>
     const index_card_a = document.querySelectorAll('.index-card-a')
     for (const a of index_card_a) {
