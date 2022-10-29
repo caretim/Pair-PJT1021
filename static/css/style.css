@@ -179,28 +179,66 @@
 
 .detail-img {
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 65px;
+  height: 65px;
 }
 
 .detail-member-img {
+  margin-right: 10px;
   border-radius: 50%;
-  width: 30px;
-  height: 30px;
+  width: 48px;
+  height: 48px;
 }
 
 .detail-user-name {
   font-family: 'HBIOS-SYS';
-  font-size: 18px;
-  margin-left: 10px;
+  font-size: 25px;
+  margin-left: 15px;
   margin-bottom: 8px;
 }
 
 .detail-member-name {
   font-family: 'HBIOS-SYS';
-  font-size: 15px;
+  font-size: 20px;
   margin-left: 10px;
   margin-bottom: 8px;
+}
+.comment-count {
+  color:rgb(105, 72, 143);
+}
+
+.comment-img {
+  margin-right: 24px;
+  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+}
+.member-label {
+  border-radius: 23px;
+  margin-right: 24px;
+  font-size: 13px;
+  background-color: #F06925;
+  width: 72px;
+  height: 20px;
+  color: white;
+}
+.comment-user {
+  margin-bottom: 8px;
+  font-size: 19px;
+  color: black;
+  font-weight: 600;
+}
+.comment-content {
+  padding: 15px;
+  font-size: 18px;
+  min-height: 59px;
+  min-width: 446px;
+  background: #D9D9D9;
+}
+.comment-how {
+  font-weight: normal;
+  font-size: 14px;
+  margin-right: 6px;
 }
 
 /* 디테일 공사중 */
