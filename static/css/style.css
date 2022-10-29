@@ -157,6 +157,7 @@
   background-color: #e5e5e5;
   font-size: 1.3rem;
 }
+
 .detail-container {
   padding: 60px 180px;
 }
@@ -386,3 +387,5 @@
 .search-con:hover {
   width: 150%;
 }
+
+/* 대문페이지 */
