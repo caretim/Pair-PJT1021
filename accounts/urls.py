@@ -11,4 +11,5 @@ urlpatterns = [
     path("<int:user_pk>/delete/", views.delete, name="delete"),
     path("<int:user_pk>/realdelete/", views.realdelete, name="realdelete"),
     path("<int:user_pk>/user_detail/", views.user_detail, name="user_detail"),
+    path("members/", views.index, name="index"),
 ]
