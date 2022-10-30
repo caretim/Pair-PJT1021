@@ -34,9 +34,13 @@
     <!-- 카운트 -->
     <div class="index-counter d-flex justify-content-around text-white retro">
       <div class="col-4">
-        <p class="m-0">등록한 회원 수</p>
-        <h1>{{ sum_user.count }}</h1>
-      </div>
+        <a href="{% url 'accounts:index' %}" class="text-decoration-none text-white">
+          <div class="register">
+            <p class="m-0">등록한 회원 수</p>
+            <h1 class="">{{ sum_user.count }}</h1>
+          </div>
+        </div>
+      </a>
       <div class="col-4">
         <p class="m-0">작성된 글 갯수</p>
         <h1>{{ sum_data.count }}</h1>
@@ -48,19 +52,19 @@
     </div>
 
     <!-- 말풍선 -->
-    <div class="info-message-div d-flex justify-content-center" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
-      <img src=" {% static 'images/info.png' %}">
-      <div class="speech-bubble d-flex align-items-center">
-        <h2 class="retro info-message">파티원을 찾아보세요!</h2>
+    <div class="info-message-div d-flex justify-content-center">
+        <img src=" {% static 'images/info.png' %}">
+        <div class="speech-bubble d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+          <h2 class="retro info-message">파티원을 찾아보세요!</h2>
+        </div>
       </div>
-    </div>
 
-    <div style="min-height: 120px;">
+    <div style="min-height: 80px;">
       <div class="collapse collapse-horizontal mx-auto" id="collapseWidthExample">
         <div class="border-0 mx-auto" style="width: 300px;">
           <form action="{% url 'reviews:search' %}">
             {% csrf_token %}
-              <input type="text" class="form-control rounded-pill" placeholder="파티원을 찾아보세요." name="search">
+            <input type="text" class="search-bar form-control rounded-pill" placeholder="파티원을 찾아보세요." name="search">
           </form>
         </div>
       </div>
@@ -102,6 +106,28 @@
       {% endfor %}
     </div>
   </div>
+
+      <!-- 말풍선 -->
+      <div class="info-message-div d-flex justify-content-center" style="margin-top: 120px;">
+        <img src=" {% static 'images/info.png' %}">
+        <div class="speech-bubble d-flex align-items-center" style="cursor: pointer;" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample2" aria-expanded="false" aria-controls="collapseWidthExample">
+          <h2 class="retro info-message">업데이트 예정입니다.</h2>
+        </div>
+      </div>
+
+    <div style="min-height: 25px;">
+      <div class="collapse collapse-horizontal mx-auto" id="collapseWidthExample2">
+        <div class="border-0 mx-auto" style="width: 300px;">
+          <form action="{% url 'reviews:search' %}">
+            {% csrf_token %}
+            <input type="text" class="search-bar form-control rounded-pill" placeholder="많관부" name="search">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mb-5">
+      <img src="{% static '/images/ing.png' %}"style="width: 13%;" alt="">
+    </div>
 
   <script>
     const index_card_a = document.querySelectorAll('.index-card-a')

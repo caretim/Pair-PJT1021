@@ -96,3 +96,10 @@ def realdelete(request, user_pk):
     if pick_user.pk == request.user.pk:
         pick_user.delete()
     return redirect("reviews:index")
+
+def index(request):
+    users = get_user_model().objects.order_by("-pk")
+    context = {
+        "users" : users,
+    }
+    return render(request, "accounts/index.html", context)
