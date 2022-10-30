@@ -98,7 +98,7 @@ def delete(request, review_pk):
     else:
         return HttpResponseForbidden()
 
-
+@login_required
 def comments(request, review_pk):
     review = Review.objects.get(pk=review_pk)
     if request.method == "POST":

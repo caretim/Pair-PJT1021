@@ -80,6 +80,7 @@
             }
 
             .scroll-bell {
+                cursor: pointer;
                 z-index: 2;
                 z-index: 1;
                 position: fixed;
@@ -146,7 +147,14 @@
                 video.currentTime = time;
 
                 console.log(time);
-                if (time >= fullHeight)
+                if (time >= 15){
+                    bell.classList.remove("bell")
+                    bell.classList.add("scroll-bell")}
+                if (time < 15){
+                    bell.classList.remove("scroll-bell")
+                    bell.classList.add("bell")
+                }
+
                 // alert('Hizo scroll')
             });
 
@@ -154,22 +162,6 @@
                 video.pause();
                 video.currentTime = 0;
             });
-
-            window.addEventListener('scroll', () => {
-                let scrollLocation = document.documentElement.scrollTop;
-                let windowHeight = window.innerHeight;
-                let fullHeight = document.body.scrollHeight;
-
-                if (scrollLocation + windowHeight >= fullHeight) {
-                    bell.classList.remove("bell")
-                    bell.classList.add("scroll-bell")
-                }
-                if (scrollLocation + windowHeight < fullHeight) {
-                    bell.classList.remove("scroll-bell")
-                    bell.classList.add("bell")
-                    bellsound.play();
-                }
-            })
 
             bell.addEventListener("click", function () {
                 bell_sound.play();
