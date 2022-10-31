@@ -72,7 +72,7 @@ def detail(request, review_pk):
     }
     return render(request, "reviews/detail.html", context)
 
-
+@login_required
 def update(request, review_pk):
     review = Review.objects.get(pk=review_pk)
     if request.method == "POST":
