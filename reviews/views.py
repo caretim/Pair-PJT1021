@@ -88,7 +88,7 @@ def update(request, review_pk):
     }
     return render(request, "reviews/update.html", context)
 
-
+@login_required
 def delete(request, review_pk):
     review = Review.objects.get(pk=review_pk)
     if review.user == request.user:

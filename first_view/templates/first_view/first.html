@@ -106,7 +106,7 @@
 
 
             .scroll-dummy {
-                height: 2000px;
+                height: 4500px;
                 max-width: 998px;
                 padding: 20px;
                 z-index: 1;
@@ -137,7 +137,7 @@
 
         <script>
             var FRAMES = 500;
-            var FPS = 30;
+            var FPS = 100;
             var video = document.getElementById('video');
             const bell = document.getElementById("bell");
 
@@ -147,10 +147,11 @@
                 video.currentTime = time;
 
                 console.log(time);
-                if (time >= 15){
+                if (time >= 15) {
                     bell.classList.remove("bell")
-                    bell.classList.add("scroll-bell")}
-                if (time < 15){
+                    bell.classList.add("scroll-bell")
+                }
+                if (time < 15) {
                     bell.classList.remove("scroll-bell")
                     bell.classList.add("bell")
                 }
